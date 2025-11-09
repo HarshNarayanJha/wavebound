@@ -8,10 +8,14 @@
 [ext_resource type="Script" uid="uid://kcm0qfet0h4w" path="res://scripts/entities/characters/player/states/state_walk.gd" id="6_lc2x5"]
 [ext_resource type="Script" uid="uid://difgltrjnww87" path="res://scripts/entities/characters/player/states/state_scan.gd" id="7_p0kre"]
 [ext_resource type="PackedScene" uid="uid://bnafj60f24phl" path="res://scenes/components/trailcrumbs_manager.tscn" id="8_gi2yv"]
+[ext_resource type="Script" uid="uid://ci5eoivrw7amx" path="res://scripts/components/material_picker.gd" id="9_co01m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_maef2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_co01m"]
+radius = 12.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
 collision_layer = 2
@@ -58,3 +62,11 @@ debug = true
 time_gap = 0.4
 player = NodePath("..")
 
+[node name="MaterialPicker" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("9_co01m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MaterialPicker"]
+shape = SubResource("CircleShape2D_co01m")
+debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)

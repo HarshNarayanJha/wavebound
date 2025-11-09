@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MaterialData" load_steps=4 format=3 uid="uid://ww4cf2xeas76"]
+
+[ext_resource type="Script" uid="uid://bxyyhjbou7lww" path="res://scripts/entities/objects/resources/material_data.gd" id="1_cn3hw"]
+
+[sub_resource type="Gradient" id="Gradient_cn3hw"]
+offsets = PackedFloat32Array(0, 0.9906745)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5asng"]
+gradient = SubResource("Gradient_cn3hw")
+width = 8
+height = 8
+
+[resource]
+script = ExtResource("1_cn3hw")
+texture = SubResource("GradientTexture2D_5asng")
+name = "Building Material"
+description = "Building materials for repairing/making shelters."
+metadata/_custom_type_script = "uid://bxyyhjbou7lww"
