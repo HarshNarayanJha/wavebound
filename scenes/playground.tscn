@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://dd54cgosb5ucn"]
+
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_osidk"]
+[ext_resource type="Texture2D" uid="uid://cvsedms06xr55" path="res://textures/map.png" id="4_2bfhc"]
+[ext_resource type="PackedScene" uid="uid://c66ikigj5dnnq" path="res://scenes/entities/objects/shelter.tscn" id="5_emj6c"]
+[ext_resource type="Script" uid="uid://cijg47k11b48s" path="res://scripts/components/player_spawner.gd" id="5_osidk"]
+[ext_resource type="PackedScene" uid="uid://b55b6vjex0cve" path="res://scenes/entities/characters/player.tscn" id="6_o6wi6"]
+
+[sub_resource type="Resource" id="Resource_rlvb3"]
+script = ExtResource("3_osidk")
+
+[node name="Playground" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2795, -165)
+zoom = Vector2(3, 3)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_x1amm")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(-2795, -165)
+script = ExtResource("2_2bfhc")
+follow_mode = 1
+follow_target = NodePath("../PlayerSpawner/Marker2D")
+zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_rlvb3")
+tween_on_load = false
+follow_damping = true
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(15, -1)
+texture = ExtResource("4_2bfhc")
+
+[node name="Objects" type="Node2D" parent="Map"]
+
+[node name="Shelter" parent="Map/Objects" instance=ExtResource("5_emj6c")]
+position = Vector2(-2811, -196)
+
+[node name="PlayerSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_position", "main_camera")]
+script = ExtResource("5_osidk")
+player_scene = ExtResource("6_o6wi6")
+spawn_position = NodePath("Marker2D")
+main_camera = NodePath("../PhantomCamera2D")
+
+[node name="Marker2D" type="Marker2D" parent="PlayerSpawner"]
+position = Vector2(-2795, -165)

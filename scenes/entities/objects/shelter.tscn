@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c66ikigj5dnnq"]
+
+[sub_resource type="Gradient" id="Gradient_1yttv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ihi8j"]
+gradient = SubResource("Gradient_1yttv")
+width = 32
+height = 32
+fill_from = Vector2(0.35425517, 0.017350577)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1yttv"]
+radius = 20.0
+
+[node name="Shelter" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 11
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_ihi8j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1yttv")
