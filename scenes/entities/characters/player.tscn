@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://b55b6vjex0cve"]
+
+[ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
+[ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
+[ext_resource type="Script" uid="uid://dwhll7oygxx36" path="res://scripts/entities/characters/player/input_handler.gd" id="3_co01m"]
+[ext_resource type="Script" uid="uid://br3lj1b7s8pja" path="res://scripts/fsm/state_machine.gd" id="4_4ic3m"]
+[ext_resource type="Script" uid="uid://36q0i8gk8oqt" path="res://scripts/entities/characters/player/states/state_idle.gd" id="5_5tcp7"]
+[ext_resource type="Script" uid="uid://kcm0qfet0h4w" path="res://scripts/entities/characters/player/states/state_walk.gd" id="6_lc2x5"]
+[ext_resource type="Script" uid="uid://difgltrjnww87" path="res://scripts/entities/characters/player/states/state_scan.gd" id="7_p0kre"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_maef2"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
+collision_layer = 2
+collision_mask = 29
+motion_mode = 1
+script = ExtResource("1_gtv6q")
+player_data = ExtResource("2_gi2yv")
+state_machine = NodePath("StateMachine")
+input = NodePath("InputHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_maef2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(16, 16)
+texture = SubResource("PlaceholderTexture2D_maef2")
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("3_co01m")
+metadata/_custom_type_script = "uid://dwhll7oygxx36"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("states")]
+script = ExtResource("4_4ic3m")
+initial_state = &"state_idle"
+states = {
+&"state_idle": NodePath("Idle"),
+&"state_scan": NodePath("Scan"),
+&"state_walk": NodePath("Walk")
+}
+sm_name = "Player"
+metadata/_custom_type_script = "uid://br3lj1b7s8pja"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_5tcp7")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("6_lc2x5")
+
+[node name="Scan" type="Node" parent="StateMachine"]
+script = ExtResource("7_p0kre")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://bogws1m5hr4lb"]
+
+[ext_resource type="Script" uid="uid://cwpfcwjbfgvx8" path="res://scripts/entities/characters/player/resources/player_data.gd" id="1_lx46u"]
+
+[resource]
+script = ExtResource("1_lx46u")
+speed = 75.0
+acceleration = 80.0
+deceleration = 150.0
+metadata/_custom_type_script = "uid://cwpfcwjbfgvx8"
