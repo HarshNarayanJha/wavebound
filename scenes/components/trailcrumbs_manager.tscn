@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnafj60f24phl"]
+
+[ext_resource type="Script" uid="uid://esbl4yrlqgs8" path="res://scripts/components/trailcrumbs_manager.gd" id="1_qqswl"]
+[ext_resource type="PackedScene" uid="uid://dfttext65sqwh" path="res://scenes/fx/crumb.tscn" id="2_a4rrm"]
+
+[node name="TrailcrumbsManager" type="Node2D" node_paths=PackedStringArray("crumb_parent", "drop_timer")]
+script = ExtResource("1_qqswl")
+crumb_scene = ExtResource("2_a4rrm")
+crumb_offset = 8.0
+crumb_parent = NodePath("Crumbs")
+drop_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Crumbs" type="Node2D" parent="."]

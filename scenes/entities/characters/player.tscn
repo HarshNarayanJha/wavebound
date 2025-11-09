@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b55b6vjex0cve"]
+[gd_scene load_steps=13 format=3 uid="uid://b55b6vjex0cve"]
 
 [ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
 [ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://36q0i8gk8oqt" path="res://scripts/entities/characters/player/states/state_idle.gd" id="5_5tcp7"]
 [ext_resource type="Script" uid="uid://kcm0qfet0h4w" path="res://scripts/entities/characters/player/states/state_walk.gd" id="6_lc2x5"]
 [ext_resource type="Script" uid="uid://difgltrjnww87" path="res://scripts/entities/characters/player/states/state_scan.gd" id="7_p0kre"]
+[ext_resource type="PackedScene" uid="uid://bnafj60f24phl" path="res://scenes/components/trailcrumbs_manager.tscn" id="8_gi2yv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
@@ -14,7 +15,7 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
 collision_layer = 2
-collision_mask = 29
+collision_mask = 25
 motion_mode = 1
 script = ExtResource("1_gtv6q")
 player_data = ExtResource("2_gi2yv")
@@ -51,3 +52,9 @@ script = ExtResource("6_lc2x5")
 
 [node name="Scan" type="Node" parent="StateMachine"]
 script = ExtResource("7_p0kre")
+
+[node name="TrailcrumbsManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_gi2yv")]
+debug = true
+time_gap = 0.4
+player = NodePath("..")
+

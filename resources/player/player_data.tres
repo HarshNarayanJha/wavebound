@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_lx46u")
-speed = 75.0
+speed = 50.0
 acceleration = 80.0
 deceleration = 150.0
 metadata/_custom_type_script = "uid://cwpfcwjbfgvx8"

@@ -53,7 +53,7 @@ func init(player: Player) -> void:
 		change_state(initial_state)
 		set_process_mode(PROCESS_MODE_INHERIT)
 	else:
-		if debug: CLogger.e(TAG, "State Machine is empty")
+		if debug: CLogger.e(TAG, "State Machine is empty or inital state not set")
 
 
 func change_state(new_state: StringName) -> void:

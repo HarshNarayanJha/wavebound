@@ -9,9 +9,9 @@ var input: InputHandler:
 var player_data: PlayerData:
 	get: return player.player_data
 
-var STATE_IDLE := &"state_idle"
-var STATE_WALK := &"state_walk"
-var STATE_SCAN := &"state_scan"
+const STATE_IDLE := &"state_idle"
+const STATE_WALK := &"state_walk"
+const STATE_SCAN := &"state_scan"
 
 ## Accelerate movement. Handles various states. Used internally by move
 func accelerate(_delta: float, input_dir: Vector2 = input.input_dir) -> void:
