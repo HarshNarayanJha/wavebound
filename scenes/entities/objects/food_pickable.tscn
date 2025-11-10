@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0a5stjp7fr1p"]
+
+[ext_resource type="Script" uid="uid://c6ql5g63swka2" path="res://scripts/entities/objects/material_pickable.gd" id="1_8ua11"]
+[ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/food_material.tres" id="2_8ua11"]
+
+[sub_resource type="Gradient" id="Gradient_uqxug"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_77akp"]
+gradient = SubResource("Gradient_uqxug")
+width = 8
+height = 8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqxug"]
+radius = 8.0
+
+[node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_8ua11")
+material_data = ExtResource("2_8ua11")
+sprite = NodePath("MaterialPickable")
+
+[node name="MaterialPickable" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_77akp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uqxug")

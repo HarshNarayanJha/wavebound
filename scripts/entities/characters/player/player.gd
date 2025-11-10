@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 @export var player_data: PlayerData
 @export var state_machine: StateMachine
 @export var input: InputHandler
+@export var inventory: InventoryManager
 #@export var interaction_finder: InteractionFinder
 #@export var hurtbox: HurtBox
 #@export var health: Health

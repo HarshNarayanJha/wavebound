@@ -21,3 +21,9 @@ func _ready() -> void:
 func pick() -> void:
 	CLogger.l(TAG, "Picked Material %s x%d" % [material_data.name, quantity])
 	queue_free()
+
+func set_quantity(qty: int) -> void:
+	if qty < 1:
+		return
+
+	quantity = qty

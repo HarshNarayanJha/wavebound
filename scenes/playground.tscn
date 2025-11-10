@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=16 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -8,9 +8,23 @@
 [ext_resource type="Script" uid="uid://cijg47k11b48s" path="res://scripts/components/player_spawner.gd" id="5_osidk"]
 [ext_resource type="PackedScene" uid="uid://b55b6vjex0cve" path="res://scenes/entities/characters/player.tscn" id="6_o6wi6"]
 [ext_resource type="PackedScene" uid="uid://cwfclcw4hmkia" path="res://scenes/entities/objects/material_pickable.tscn" id="8_mrac1"]
+[ext_resource type="PackedScene" uid="uid://c0a5stjp7fr1p" path="res://scenes/entities/objects/food_pickable.tscn" id="9_2q4k0"]
+[ext_resource type="PackedScene" uid="uid://bceurkhw3t078" path="res://scenes/components/material_spawner.tscn" id="10_x1amm"]
 
 [sub_resource type="Resource" id="Resource_rlvb3"]
 script = ExtResource("3_osidk")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1amm"]
+size = Vector2(500, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q4k0"]
+size = Vector2(150, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bfhc"]
+size = Vector2(350, 350)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osidk"]
+size = Vector2(2926, 892)
 
 [node name="Playground" type="Node2D"]
 
@@ -52,5 +66,56 @@ main_camera = NodePath("../PhantomCamera2D")
 [node name="Marker2D" type="Marker2D" parent="PlayerSpawner"]
 position = Vector2(-2795, -165)
 
-[node name="MaterialPickable" parent="." instance=ExtResource("8_mrac1")]
-position = Vector2(-2537.0654, -186.64554)
+[node name="MaterialSpawner1" parent="." instance=ExtResource("10_x1amm")]
+position = Vector2(-2292, -17)
+materials = Array[PackedScene]([ExtResource("8_mrac1")])
+quantity = 25
+
+[node name="CollisionShape2D" parent="MaterialSpawner1" index="0"]
+shape = SubResource("RectangleShape2D_x1amm")
+
+[node name="DebugLabel" parent="MaterialSpawner1" index="1"]
+text = "Building Material"
+
+[node name="MaterialSpawner2" parent="." instance=ExtResource("10_x1amm")]
+position = Vector2(-1917, 169)
+materials = Array[PackedScene]([ExtResource("8_mrac1"), ExtResource("9_2q4k0")])
+quantity = 20
+
+[node name="CollisionShape2D" parent="MaterialSpawner2" index="0"]
+shape = SubResource("RectangleShape2D_2q4k0")
+
+[node name="DebugLabel" parent="MaterialSpawner2" index="1"]
+text = "Food & Building"
+
+[node name="MaterialSpawner3" parent="." instance=ExtResource("10_x1amm")]
+position = Vector2(-2194, 269)
+materials = Array[PackedScene]([ExtResource("9_2q4k0")])
+quantity = 20
+
+[node name="CollisionShape2D" parent="MaterialSpawner3" index="0"]
+position = Vector2(-69, 0)
+shape = SubResource("RectangleShape2D_2bfhc")
+
+[node name="DebugLabel" parent="MaterialSpawner3" index="1"]
+text = "Food"
+
+[node name="MaterialSpawner" parent="." instance=ExtResource("10_x1amm")]
+position = Vector2(-305, 320)
+materials = Array[PackedScene]([ExtResource("9_2q4k0"), ExtResource("8_mrac1")])
+quantity = 100
+
+[node name="CollisionShape2D" parent="MaterialSpawner" index="0"]
+shape = SubResource("RectangleShape2D_osidk")
+
+[node name="DebugLabel" parent="MaterialSpawner" index="1"]
+offset_left = 83.654785
+offset_top = 334.83588
+offset_right = 327.6548
+offset_bottom = 379.83588
+text = "Food and Building"
+
+[editable path="MaterialSpawner1"]
+[editable path="MaterialSpawner2"]
+[editable path="MaterialSpawner3"]
+[editable path="MaterialSpawner"]

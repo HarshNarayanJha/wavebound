@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bceurkhw3t078"]
+
+[ext_resource type="Script" uid="uid://b5xfh1k6hhiqv" path="res://scripts/components/material_spawner.gd" id="1_jmw6n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jmw6n"]
+font_size = 28
+
+[node name="MaterialSpawner" type="Node2D" node_paths=PackedStringArray("spawn_shape", "debug_label")]
+script = ExtResource("1_jmw6n")
+spawn_shape = NodePath("CollisionShape2D")
+debug_label = NodePath("DebugLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+debug_color = Color(0.5762487, 0.5539347, 0, 0.41960785)
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -102.0
+offset_top = -26.0
+offset_right = 90.0
+offset_bottom = 19.0
+text = "Debug Label"
+label_settings = SubResource("LabelSettings_jmw6n")
+horizontal_alignment = 1
+vertical_alignment = 1
