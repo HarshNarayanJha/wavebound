@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b55b6vjex0cve"]
+[gd_scene load_steps=16 format=3 uid="uid://b55b6vjex0cve"]
 
 [ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
 [ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
@@ -14,10 +14,19 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_maef2"]
+[sub_resource type="Gradient" id="Gradient_5tcp7"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.41960785)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lc2x5"]
+gradient = SubResource("Gradient_5tcp7")
+width = 1
+height = 1
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_co01m"]
-radius = 12.0
+radius = 15.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
 collision_layer = 2
@@ -33,7 +42,7 @@ shape = SubResource("CircleShape2D_maef2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(16, 16)
-texture = SubResource("PlaceholderTexture2D_maef2")
+texture = SubResource("GradientTexture2D_lc2x5")
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_co01m")
@@ -60,7 +69,6 @@ script = ExtResource("6_lc2x5")
 script = ExtResource("7_p0kre")
 
 [node name="TrailcrumbsManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_gi2yv")]
-debug = true
 time_gap = 1.5
 crumb_offset = 9.2
 player = NodePath("..")

@@ -37,8 +37,8 @@ signal item_removed(old_stack: ItemStack, new_stack: ItemStack)
 signal inventory_updated
 
 func _add_item(item: MaterialData, qty: int = 1) -> bool:
-	if items[item.name]:
-		var old = items[item.name]
+	if items.has(item.name):
+		var old = items.get(item.name)
 		if items[item.name].inc(qty):
 			item_added.emit(old, items[item.name])
 			inventory_updated.emit()
@@ -69,14 +69,14 @@ func _remove_item(item: MaterialData, qty: int = 1) -> bool:
 	else:
 		return false
 
-func _has_item(item: MaterialData) -> bool:
+func has_item(item: MaterialData) -> bool:
 	return item.name in items
 
-func _get_count(item: MaterialData) -> int:
-	if not _has_item(item):
+func get_count(item: MaterialData) -> int:
+	if not has_item(item):
 		return 0
 
 	return items[item.name].count
 
-func _get_all_items() -> Array[ItemStack]:
+func get_all_items() -> Array[ItemStack]:
 	return items.values()

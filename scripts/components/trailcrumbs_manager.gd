@@ -38,8 +38,8 @@ func drop_crumb() -> void:
 		return
 
 	var crumb = crumb_scene.instantiate()
-	crumb_parent.add_child(crumb)
 	var dir := -player.input.input_dir
 	crumb.global_position = player.global_position + dir * crumb_offset
+	crumb_parent.add_child(crumb)
 
 	if debug: CLogger.d(TAG, "Dropping trail crumb at " + str(crumb.global_position))

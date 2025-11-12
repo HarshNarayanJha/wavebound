@@ -4,12 +4,14 @@
 
 [sub_resource type="Gradient" id="Gradient_cn3hw"]
 offsets = PackedFloat32Array(0, 0.9906745)
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5asng"]
 gradient = SubResource("Gradient_cn3hw")
 width = 8
 height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [resource]
 script = ExtResource("1_cn3hw")

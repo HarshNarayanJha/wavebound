@@ -15,10 +15,10 @@ func remove_many(item: MaterialData, qty: int) -> bool:
 	return inventory._remove_item(item, qty)
 
 func has_item(item: MaterialData) -> bool:
-	return inventory._has_item(item)
+	return inventory.has_item(item)
 
 func get_count(item: MaterialData) -> int:
-	return inventory._get_count(item)
+	return inventory.get_count(item)
 
 func get_all_items() -> Array[InventoryData.ItemStack]:
-	return inventory._get_all_items()
+	return inventory.get_all_items()

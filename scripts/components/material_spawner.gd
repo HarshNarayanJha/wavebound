@@ -6,6 +6,11 @@ extends Node2D
 
 @export var debug_label: Label
 
+var rng = RandomNumberGenerator.new()
+
+var random_quantities = [1, 2, 5, 10, 25, 50, 100]
+var weights = PackedFloat32Array([1, 1, 2, 1.5, 0.8, 0.5, 0.1])
+
 func _ready() -> void:
 	spawn_materials()
 	debug_label.hide()
@@ -27,4 +32,4 @@ func spawn_materials() -> void:
 			randf_range(0 - size.y / 2, 0 + size.y / 2)
 		)
 
-		mNode.set_quantity(1)
+		mNode.set_quantity(random_quantities[rng.rand_weighted(weights)])

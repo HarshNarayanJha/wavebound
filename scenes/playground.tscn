@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=18 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cwfclcw4hmkia" path="res://scenes/entities/objects/material_pickable.tscn" id="8_mrac1"]
 [ext_resource type="PackedScene" uid="uid://c0a5stjp7fr1p" path="res://scenes/entities/objects/food_pickable.tscn" id="9_2q4k0"]
 [ext_resource type="PackedScene" uid="uid://bceurkhw3t078" path="res://scenes/components/material_spawner.tscn" id="10_x1amm"]
+[ext_resource type="PackedScene" uid="uid://p0h8vm3tcxu7" path="res://scenes/ui/game_ui.tscn" id="11_2bfhc"]
 
 [sub_resource type="Resource" id="Resource_rlvb3"]
 script = ExtResource("3_osidk")
@@ -18,13 +19,17 @@ script = ExtResource("3_osidk")
 size = Vector2(500, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q4k0"]
-size = Vector2(150, 500)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bfhc"]
-size = Vector2(350, 350)
+size = Vector2(150, 756)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osidk"]
 size = Vector2(2926, 892)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bfhc"]
+size = Vector2(428, 374)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x1amm"]
+font_size = 68
+font_color = Color(0, 0, 0, 1)
 
 [node name="Playground" type="Node2D"]
 
@@ -42,7 +47,7 @@ top_level = true
 position = Vector2(-2795, -165)
 script = ExtResource("2_2bfhc")
 follow_mode = 1
-follow_target = NodePath("../PlayerSpawner/Marker2D")
+follow_target = NodePath("../Map/Spawners/PlayerSpawner/Marker2D")
 zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_rlvb3")
 tween_on_load = false
@@ -57,65 +62,86 @@ texture = ExtResource("4_2bfhc")
 [node name="Shelter" parent="Map/Objects" instance=ExtResource("5_emj6c")]
 position = Vector2(-2811, -196)
 
-[node name="PlayerSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_position", "main_camera")]
+[node name="Spawners" type="Node2D" parent="Map"]
+
+[node name="PlayerSpawner" type="Node" parent="Map/Spawners" node_paths=PackedStringArray("spawn_position", "main_camera")]
 script = ExtResource("5_osidk")
 player_scene = ExtResource("6_o6wi6")
 spawn_position = NodePath("Marker2D")
-main_camera = NodePath("../PhantomCamera2D")
+main_camera = NodePath("../../../PhantomCamera2D")
 
-[node name="Marker2D" type="Marker2D" parent="PlayerSpawner"]
+[node name="Marker2D" type="Marker2D" parent="Map/Spawners/PlayerSpawner"]
 position = Vector2(-2795, -165)
 
-[node name="MaterialSpawner1" parent="." instance=ExtResource("10_x1amm")]
-position = Vector2(-2292, -17)
+[node name="MaterialSpawner1" parent="Map/Spawners" instance=ExtResource("10_x1amm")]
+position = Vector2(-2273, 3)
 materials = Array[PackedScene]([ExtResource("8_mrac1")])
-quantity = 25
 
-[node name="CollisionShape2D" parent="MaterialSpawner1" index="0"]
+[node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner1" index="0"]
 shape = SubResource("RectangleShape2D_x1amm")
 
-[node name="DebugLabel" parent="MaterialSpawner1" index="1"]
+[node name="DebugLabel" parent="Map/Spawners/MaterialSpawner1" index="1"]
 text = "Building Material"
 
-[node name="MaterialSpawner2" parent="." instance=ExtResource("10_x1amm")]
-position = Vector2(-1917, 169)
-materials = Array[PackedScene]([ExtResource("8_mrac1"), ExtResource("9_2q4k0")])
-quantity = 20
+[node name="MaterialSpawner2" parent="Map/Spawners" instance=ExtResource("10_x1amm")]
+position = Vector2(-1932, 218)
+materials = Array[PackedScene]([ExtResource("8_mrac1")])
+quantity = 30
 
-[node name="CollisionShape2D" parent="MaterialSpawner2" index="0"]
+[node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner2" index="0"]
 shape = SubResource("RectangleShape2D_2q4k0")
 
-[node name="DebugLabel" parent="MaterialSpawner2" index="1"]
-text = "Food & Building"
+[node name="DebugLabel" parent="Map/Spawners/MaterialSpawner2" index="1"]
+text = "Building"
 
-[node name="MaterialSpawner3" parent="." instance=ExtResource("10_x1amm")]
-position = Vector2(-2194, 269)
-materials = Array[PackedScene]([ExtResource("9_2q4k0")])
-quantity = 20
-
-[node name="CollisionShape2D" parent="MaterialSpawner3" index="0"]
-position = Vector2(-69, 0)
-shape = SubResource("RectangleShape2D_2bfhc")
-
-[node name="DebugLabel" parent="MaterialSpawner3" index="1"]
-text = "Food"
-
-[node name="MaterialSpawner" parent="." instance=ExtResource("10_x1amm")]
-position = Vector2(-305, 320)
+[node name="MaterialSpawner" parent="Map/Spawners" instance=ExtResource("10_x1amm")]
+position = Vector2(-352, 321)
 materials = Array[PackedScene]([ExtResource("9_2q4k0"), ExtResource("8_mrac1")])
-quantity = 100
+quantity = 500
 
-[node name="CollisionShape2D" parent="MaterialSpawner" index="0"]
+[node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner" index="0"]
 shape = SubResource("RectangleShape2D_osidk")
 
-[node name="DebugLabel" parent="MaterialSpawner" index="1"]
-offset_left = 83.654785
-offset_top = 334.83588
-offset_right = 327.6548
-offset_bottom = 379.83588
+[node name="DebugLabel" parent="Map/Spawners/MaterialSpawner" index="1"]
+offset_left = 23.0
+offset_top = 2.0
+offset_right = 267.0
+offset_bottom = 47.0
 text = "Food and Building"
 
-[editable path="MaterialSpawner1"]
-[editable path="MaterialSpawner2"]
-[editable path="MaterialSpawner3"]
-[editable path="MaterialSpawner"]
+[node name="MaterialSpawner3" parent="Map/Spawners" instance=ExtResource("10_x1amm")]
+position = Vector2(-2209, 270)
+materials = Array[PackedScene]([ExtResource("9_2q4k0")])
+quantity = 40
+
+[node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner3" index="0"]
+position = Vector2(-41, 10)
+shape = SubResource("RectangleShape2D_2bfhc")
+
+[node name="DebugLabel" parent="Map/Spawners/MaterialSpawner3" index="1"]
+text = "Food"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -1689.0
+offset_top = 985.0
+offset_right = -1416.0
+offset_bottom = 1078.0
+text = "GPS LAB"
+label_settings = SubResource("LabelSettings_x1amm")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 135.0
+offset_top = 958.0
+offset_right = 408.0
+offset_bottom = 1051.0
+text = "GPS LAB"
+label_settings = SubResource("LabelSettings_x1amm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("11_2bfhc")]
+
+[editable path="Map/Spawners/MaterialSpawner1"]
+[editable path="Map/Spawners/MaterialSpawner2"]
+[editable path="Map/Spawners/MaterialSpawner"]
+[editable path="Map/Spawners/MaterialSpawner3"]

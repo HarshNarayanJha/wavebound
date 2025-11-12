@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://p0h8vm3tcxu7"]
+
+[ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
+[ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="2_xjfbv"]
+[ext_resource type="Resource" uid="uid://ww4cf2xeas76" path="res://resources/materials/building_material.tres" id="3_bma8u"]
+[ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/food_material.tres" id="4_fct72"]
+
+[sub_resource type="Gradient" id="Gradient_1ndix"]
+colors = PackedColorArray(0.4392157, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gwk6t"]
+gradient = SubResource("Gradient_1ndix")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_gwk6t"]
+colors = PackedColorArray(0.54901963, 0.8745098, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xjfbv"]
+gradient = SubResource("Gradient_gwk6t")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "food_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gwk6t")
+building_mat_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/BuildingMaterialCount/Label")
+food_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/FoodMaterialCount/Label")
+inventory_data = ExtResource("2_xjfbv")
+building_mat = ExtResource("3_bma8u")
+food_mat = ExtResource("4_fct72")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="BuildingMaterialCount" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/BuildingMaterialCount"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_gwk6t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/BuildingMaterialCount"]
+layout_mode = 2
+text = "x100"
+horizontal_alignment = 1
+
+[node name="FoodMaterialCount" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/FoodMaterialCount"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_xjfbv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/FoodMaterialCount"]
+layout_mode = 2
+text = "x99"
+horizontal_alignment = 1

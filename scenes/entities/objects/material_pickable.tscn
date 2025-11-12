@@ -4,15 +4,17 @@
 [ext_resource type="Resource" uid="uid://ww4cf2xeas76" path="res://resources/materials/building_material.tres" id="2_77akp"]
 
 [sub_resource type="Gradient" id="Gradient_uqxug"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_77akp"]
 gradient = SubResource("Gradient_uqxug")
 width = 8
 height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uqxug"]
-radius = 8.0
+radius = 4.0
 
 [node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8

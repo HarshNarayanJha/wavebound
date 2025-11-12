@@ -15,11 +15,11 @@ func _ready() -> void:
 		push_error("Material Data not Set")
 		return
 
-	CLogger.l(TAG, "Setting texture to %s" % material_data.texture)
+	# CLogger.l(TAG, "Setting texture to %s" % material_data.texture)
 	sprite.texture = material_data.texture
 
 func pick() -> void:
-	CLogger.l(TAG, "Picked Material %s x%d" % [material_data.name, quantity])
+	# CLogger.l(TAG, "Picked Material %s x%d" % [material_data.name, quantity])
 	queue_free()
 
 func set_quantity(qty: int) -> void:
