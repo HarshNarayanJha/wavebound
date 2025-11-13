@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="ShelterData" load_steps=12 format=3 uid="uid://w3e6h54hxber"]
+
+[ext_resource type="Script" uid="uid://dlchyepdlxqxw" path="res://scripts/entities/objects/resources/shelter_data.gd" id="1_ixd6r"]
+
+[sub_resource type="Gradient" id="Gradient_ixd6r"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.65882355, 0.65882355, 0.16470589, 0, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_24bfw"]
+gradient = SubResource("Gradient_ixd6r")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_edomb"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tjps8"]
+gradient = SubResource("Gradient_edomb")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_oixhq"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8afvf"]
+gradient = SubResource("Gradient_oixhq")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_bhf8v"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qfbhs"]
+gradient = SubResource("Gradient_bhf8v")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_24bfw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_edomb"]
+gradient = SubResource("Gradient_24bfw")
+width = 32
+height = 16
+
+[resource]
+script = ExtResource("1_ixd6r")
+sprites = Dictionary[int, Texture2D]({
+0: SubResource("GradientTexture2D_24bfw"),
+1: SubResource("GradientTexture2D_tjps8"),
+2: SubResource("GradientTexture2D_8afvf"),
+3: SubResource("GradientTexture2D_qfbhs"),
+4: SubResource("GradientTexture2D_edomb")
+})
+action_names = Dictionary[int, String]({
+0: "Build Shelter",
+1: "Repair Shelter",
+2: "Repair Shelter",
+3: "Fix Shelter",
+4: "Patch Shelter"
+})
+metadata/_custom_type_script = "uid://dlchyepdlxqxw"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b55b6vjex0cve"]
+[gd_scene load_steps=17 format=3 uid="uid://b55b6vjex0cve"]
 
 [ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
 [ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ci5eoivrw7amx" path="res://scripts/components/material_picker.gd" id="9_co01m"]
 [ext_resource type="Script" uid="uid://didgmfiar2i13" path="res://scripts/inventory/inventory_manager.gd" id="10_5tcp7"]
 [ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="11_lc2x5"]
+[ext_resource type="Script" uid="uid://cr175f01utdxv" path="res://scripts/components/interaction_manager.gd" id="12_lc2x5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
@@ -87,3 +88,13 @@ debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)
 script = ExtResource("10_5tcp7")
 inventory = ExtResource("11_lc2x5")
 metadata/_custom_type_script = "uid://didgmfiar2i13"
+
+[node name="InteractionManager" type="Area2D" parent="." node_paths=PackedStringArray("player")]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("12_lc2x5")
+player = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InteractionManager"]
+shape = SubResource("CircleShape2D_co01m")
+debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)
