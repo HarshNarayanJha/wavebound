@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=23 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -6,9 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://cvsedms06xr55" path="res://textures/map.png" id="4_2bfhc"]
 [ext_resource type="PackedScene" uid="uid://c66ikigj5dnnq" path="res://scenes/entities/objects/shelter.tscn" id="5_emj6c"]
 [ext_resource type="Script" uid="uid://cijg47k11b48s" path="res://scripts/components/player_spawner.gd" id="5_osidk"]
+[ext_resource type="PackedScene" uid="uid://17r5l40gy564" path="res://scenes/icons/rock_small_1.tscn" id="5_rlvb3"]
 [ext_resource type="PackedScene" uid="uid://b55b6vjex0cve" path="res://scenes/entities/characters/player.tscn" id="6_o6wi6"]
+[ext_resource type="PackedScene" uid="uid://ejcaujaycowj" path="res://scenes/icons/grass_small_1.tscn" id="6_rlvb3"]
+[ext_resource type="PackedScene" uid="uid://kgysmxrnwwxn" path="res://scenes/icons/flower_1.tscn" id="7_k63md"]
+[ext_resource type="PackedScene" uid="uid://kxjlgu6jq5rv" path="res://scenes/icons/rock_large_1.tscn" id="8_fn4oh"]
 [ext_resource type="PackedScene" uid="uid://cwfclcw4hmkia" path="res://scenes/entities/objects/material_pickable.tscn" id="8_mrac1"]
 [ext_resource type="PackedScene" uid="uid://c0a5stjp7fr1p" path="res://scenes/entities/objects/food_pickable.tscn" id="9_2q4k0"]
+[ext_resource type="PackedScene" uid="uid://dv1are383yxjc" path="res://scenes/icons/forest_1.tscn" id="9_j30dx"]
 [ext_resource type="PackedScene" uid="uid://bceurkhw3t078" path="res://scenes/components/material_spawner.tscn" id="10_x1amm"]
 [ext_resource type="PackedScene" uid="uid://p0h8vm3tcxu7" path="res://scenes/ui/game_ui.tscn" id="11_2bfhc"]
 
@@ -56,6 +61,213 @@ follow_damping = true
 [node name="Map" type="Sprite2D" parent="."]
 position = Vector2(15, -1)
 texture = ExtResource("4_2bfhc")
+metadata/_edit_lock_ = true
+
+[node name="Icons" type="Node2D" parent="Map"]
+
+[node name="RockSmall1" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2722, -131)
+
+[node name="RockSmall2" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2687, -154)
+
+[node name="RockSmall3" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2693, -94)
+
+[node name="RockSmall5" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2578, -7)
+
+[node name="RockSmall6" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2619, 39)
+
+[node name="RockSmall7" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2577, 112)
+
+[node name="RockSmall8" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2544, -63)
+
+[node name="RockSmall9" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2524, 179)
+
+[node name="RockSmall10" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2192, -156)
+
+[node name="RockSmall11" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2045, -189)
+
+[node name="RockSmall12" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2207, -113)
+
+[node name="RockSmall13" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2439, -106)
+
+[node name="RockSmall14" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1769, -192)
+
+[node name="RockSmall15" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1596, -176)
+
+[node name="RockSmall16" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1334, -186)
+
+[node name="RockSmall17" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1828, 49)
+
+[node name="RockSmall18" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2012, 652)
+
+[node name="RockSmall19" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1821, 824)
+
+[node name="RockSmall20" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1539, 804)
+
+[node name="RockSmall21" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-1353, 836)
+
+[node name="RockSmall4" parent="Map/Icons" instance=ExtResource("5_rlvb3")]
+position = Vector2(-2693, -94)
+
+[node name="GrassSmall1" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2751, -98)
+
+[node name="GrassSmall2" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2734, -68)
+
+[node name="GrassSmall3" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2676, -121)
+
+[node name="GrassSmall6" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2580, -87)
+
+[node name="GrassSmall7" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2582, -127)
+
+[node name="GrassSmall8" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2599, -53)
+
+[node name="GrassSmall9" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2683, -39)
+
+[node name="GrassSmall10" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2634, -71)
+
+[node name="GrassSmall11" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2564, 37)
+
+[node name="GrassSmall12" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2594, 57)
+
+[node name="GrassSmall13" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2550, 84)
+
+[node name="GrassSmall14" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2532, 123)
+
+[node name="GrassSmall15" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2577, 149)
+
+[node name="GrassSmall16" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2492, 140)
+
+[node name="GrassSmall17" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2567, 215)
+
+[node name="GrassSmall18" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2608, 229)
+
+[node name="GrassSmall19" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2497, 249)
+
+[node name="GrassSmall20" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2477, 218)
+
+[node name="GrassSmall21" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2483, 287)
+
+[node name="GrassSmall4" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2722, -171)
+
+[node name="GrassSmall5" parent="Map/Icons" instance=ExtResource("6_rlvb3")]
+position = Vector2(-2805, -116)
+
+[node name="Flower1" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2764, -142)
+
+[node name="Flower2" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2636, -19)
+
+[node name="Flower3" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2517, -121)
+
+[node name="Flower4" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2388, -145)
+
+[node name="Flower5" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2096, -122)
+
+[node name="Flower6" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2579, -222)
+
+[node name="Flower7" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-2201, 514)
+
+[node name="Flower8" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-1838, 544)
+
+[node name="Flower9" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-1677, -237)
+
+[node name="Flower10" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-1151, -289)
+
+[node name="Flower11" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-810, -599)
+
+[node name="Flower12" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(-220, -290)
+
+[node name="Flower13" parent="Map/Icons" instance=ExtResource("7_k63md")]
+position = Vector2(174, -533)
+
+[node name="RockLarge1" parent="Map/Icons" instance=ExtResource("8_fn4oh")]
+position = Vector2(-2300, -114)
+
+[node name="Forest1" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-1668, -162)
+
+[node name="Forest2" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-932, 356)
+
+[node name="Forest3" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-327, 83)
+
+[node name="Forest4" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(1019, -323)
+
+[node name="Forest5" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(500, -389)
+
+[node name="Forest6" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(1524, 75)
+
+[node name="Forest7" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(1409, -592)
+
+[node name="Forest8" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(645, 597)
+
+[node name="Forest9" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(619, 178)
+
+[node name="Forest10" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-159, 580)
+
+[node name="Forest11" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-1652, 729)
+
+[node name="Forest12" parent="Map/Icons" instance=ExtResource("9_j30dx")]
+position = Vector2(-2203, 435)
 
 [node name="Objects" type="Node2D" parent="Map"]
 

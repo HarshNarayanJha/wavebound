@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://kxjlgu6jq5rv"]
+
+[ext_resource type="Texture2D" uid="uid://c7tssggqharcs" path="res://textures/map_icons/Rock-Large-1.png" id="1_ouaf4"]
+
+[node name="RockLarge1" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ouaf4")

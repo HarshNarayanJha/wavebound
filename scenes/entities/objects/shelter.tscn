@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c66ikigj5dnnq"]
+[gd_scene load_steps=7 format=3 uid="uid://c66ikigj5dnnq"]
 
 [ext_resource type="Script" uid="uid://dy286qwlhovo6" path="res://scripts/entities/objects/shelter.gd" id="1_ihi8j"]
 [ext_resource type="Resource" uid="uid://w3e6h54hxber" path="res://resources/objects/shelter_data.tres" id="2_hga22"]
+[ext_resource type="Texture2D" uid="uid://dwshuoxdubqqm" path="res://textures/map_icons/Shelter.png" id="3_37sv0"]
 [ext_resource type="PackedScene" uid="uid://dxtv5l1kat33s" path="res://scenes/components/interaction_area.tscn" id="3_gph84"]
-
-[sub_resource type="Gradient" id="Gradient_1yttv"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ihi8j"]
-gradient = SubResource("Gradient_1yttv")
-width = 32
-height = 32
-fill_from = Vector2(0.35425517, 0.017350577)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hga22"]
 size = Vector2(30, 30)
@@ -28,7 +21,8 @@ sprite = NodePath("Sprite2D")
 interaction_area = NodePath("InteractionArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_ihi8j")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_37sv0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hga22")

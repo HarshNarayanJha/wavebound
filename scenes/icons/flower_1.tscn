@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://kgysmxrnwwxn"]
+
+[ext_resource type="Texture2D" uid="uid://baet83e6l2for" path="res://textures/map_icons/Flower-1.png" id="1_30vta"]
+
+[node name="Flower1" type="Sprite2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_30vta")

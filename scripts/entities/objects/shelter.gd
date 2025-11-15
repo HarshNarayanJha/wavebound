@@ -26,7 +26,7 @@ func _exit_tree() -> void:
 	shelter_data.health_updated.disconnect(_update_sprite)
 	interaction_area.interact.disconnect(_shelter_interact)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_0):
 		CLogger.d(TAG, str(apply_damage(50)))
 

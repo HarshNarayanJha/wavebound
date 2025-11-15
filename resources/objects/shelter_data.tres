@@ -1,65 +1,20 @@
-[gd_resource type="Resource" script_class="ShelterData" load_steps=12 format=3 uid="uid://w3e6h54hxber"]
+[gd_resource type="Resource" script_class="ShelterData" load_steps=7 format=3 uid="uid://w3e6h54hxber"]
 
 [ext_resource type="Script" uid="uid://dlchyepdlxqxw" path="res://scripts/entities/objects/resources/shelter_data.gd" id="1_ixd6r"]
-
-[sub_resource type="Gradient" id="Gradient_ixd6r"]
-offsets = PackedFloat32Array(0, 0.6, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0.65882355, 0.65882355, 0.16470589, 0, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_24bfw"]
-gradient = SubResource("Gradient_ixd6r")
-width = 32
-height = 32
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_edomb"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tjps8"]
-gradient = SubResource("Gradient_edomb")
-width = 32
-height = 32
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_oixhq"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8afvf"]
-gradient = SubResource("Gradient_oixhq")
-width = 32
-height = 32
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_bhf8v"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qfbhs"]
-gradient = SubResource("Gradient_bhf8v")
-width = 32
-height = 32
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_24bfw"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_edomb"]
-gradient = SubResource("Gradient_24bfw")
-width = 32
-height = 16
+[ext_resource type="Texture2D" uid="uid://oks4uwnbsc5" path="res://textures/map_icons/Shelter-Unconstructed.png" id="2_8afvf"]
+[ext_resource type="Texture2D" uid="uid://dwshuoxdubqqm" path="res://textures/map_icons/Shelter.png" id="2_24bfw"]
+[ext_resource type="Texture2D" uid="uid://bam63wbjbc3v2" path="res://textures/map_icons/Shelter-Broken-25.png" id="2_oixhq"]
+[ext_resource type="Texture2D" uid="uid://btn74f03e8agr" path="res://textures/map_icons/Shelter-Broken-50.png" id="3_8afvf"]
+[ext_resource type="Texture2D" uid="uid://dcx6kcfhrlju3" path="res://textures/map_icons/Shelter-Broken-75.png" id="4_bhf8v"]
 
 [resource]
 script = ExtResource("1_ixd6r")
 sprites = Dictionary[int, Texture2D]({
-0: SubResource("GradientTexture2D_24bfw"),
-1: SubResource("GradientTexture2D_tjps8"),
-2: SubResource("GradientTexture2D_8afvf"),
-3: SubResource("GradientTexture2D_qfbhs"),
-4: SubResource("GradientTexture2D_edomb")
+0: ExtResource("2_8afvf"),
+1: ExtResource("2_oixhq"),
+2: ExtResource("3_8afvf"),
+3: ExtResource("4_bhf8v"),
+4: ExtResource("2_24bfw")
 })
 action_names = Dictionary[int, String]({
 0: "Build Shelter",
