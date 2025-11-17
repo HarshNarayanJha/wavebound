@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwshuoxdubqqm"
-path="res://.godot/imported/Shelter.png-e113c6f60fce56268896bb5b04a824d1.ctex"
+uid="uid://fk1tm4pauf7l"
+path="res://.godot/imported/player_circle.png-31901f5fce7b9ecc96d147c419600e19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/map_icons/Shelter.png"
-dest_files=["res://.godot/imported/Shelter.png-e113c6f60fce56268896bb5b04a824d1.ctex"]
+source_file="res://textures/player_circle.png"
+dest_files=["res://.godot/imported/player_circle.png-31901f5fce7b9ecc96d147c419600e19.ctex"]
 
 [params]
 

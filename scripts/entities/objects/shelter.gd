@@ -43,4 +43,4 @@ func _update_sprite(_o: int, _n: int):
 
 func _shelter_interact():
 	if debug: CLogger.d(TAG, "Shelter interacted")
-	repair_damage(20)
+	repair_damage(5)

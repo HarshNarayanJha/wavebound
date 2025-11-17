@@ -4,6 +4,7 @@ extends Control
 @export var building_mat_label: Label
 @export var food_label: Label
 @export var shelter_health_bar: ProgressBar
+@export var crt_filter: TextureRect
 
 @export_category("Signals")
 @export var inventory_data: InventoryData
@@ -15,8 +16,10 @@ extends Control
 
 func _ready() -> void:
 	update_item_count()
+	update_shelter_healthbar(0, shelter_data.get_current_health())
 	inventory_data.inventory_updated.connect(update_item_count)
 	shelter_data.health_updated.connect(update_shelter_healthbar)
+	crt_filter.show()
 
 func update_item_count() -> void:
 	building_mat_label.set_text("x%d" % inventory_data.get_count(building_mat))

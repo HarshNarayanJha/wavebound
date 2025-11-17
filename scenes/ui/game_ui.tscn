@@ -1,10 +1,40 @@
-[gd_scene load_steps=12 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=21 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="2_xjfbv"]
 [ext_resource type="Resource" uid="uid://ww4cf2xeas76" path="res://resources/materials/building_material.tres" id="3_bma8u"]
 [ext_resource type="Resource" uid="uid://w3e6h54hxber" path="res://resources/objects/shelter_data.tres" id="3_ru5ln"]
 [ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/food_material.tres" id="4_fct72"]
+[ext_resource type="Texture2D" uid="uid://dcuclb72c0vcw" path="res://textures/Radar UI.png" id="6_v1bdg"]
+[ext_resource type="Texture2D" uid="uid://whev7huisttr" path="res://textures/Radar_UI_CrossHair.png" id="7_k7elv"]
+[ext_resource type="Shader" uid="uid://dagtqb8qy27no" path="res://shaders/crt_fisheye.gdshader" id="7_qrkc0"]
+[ext_resource type="Texture2D" uid="uid://b0o6ffdk8rf35" path="res://textures/Radar UI_Circle.png" id="8_yvtb5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
+texture = ExtResource("6_v1bdg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrkc0"]
+shader = ExtResource("7_qrkc0")
+shader_parameter/fisheye_strength = 1.1
+
+[sub_resource type="Gradient" id="Gradient_v1bdg"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrkc0"]
+gradient = SubResource("Gradient_v1bdg")
+height = 128
+
+[sub_resource type="Gradient" id="Gradient_qrkc0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yvtb5"]
+gradient = SubResource("Gradient_qrkc0")
+width = 16
+height = 16
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v1bdg"]
+gradient = SubResource("Gradient_qrkc0")
+width = 16
+height = 16
 
 [sub_resource type="Gradient" id="Gradient_1ndix"]
 colors = PackedColorArray(0.4392157, 0, 0, 1, 1, 1, 1, 0)
@@ -26,14 +56,7 @@ height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_fct72"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ru5ln"]
-gradient = SubResource("Gradient_fct72")
-width = 32
-height = 32
-
-[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "food_label", "shelter_health_bar")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "food_label", "shelter_health_bar", "crt_filter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,83 +64,174 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gwk6t")
-building_mat_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/BuildingMaterialCount/Label")
-food_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/FoodMaterialCount/Label")
-shelter_health_bar = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/HouseHealth/ProgressBar")
+building_mat_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount/Label")
+food_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount/Label")
+shelter_health_bar = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox/ProgressBar")
+crt_filter = NodePath("PanelContainer/CRTFish")
 inventory_data = ExtResource("2_xjfbv")
 shelter_data = ExtResource("3_ru5ln")
 building_mat = ExtResource("3_bma8u")
 food_mat = ExtResource("4_fct72")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_styles/panel = SubResource("StyleBoxTexture_qrkc0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="CrossHair" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("7_k7elv")
+stretch_mode = 6
+
+[node name="CRTFish" type="TextureRect" parent="PanelContainer"]
+visible = false
+material = SubResource("ShaderMaterial_qrkc0")
+layout_mode = 2
+texture = ExtResource("8_yvtb5")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="MainHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="LeftVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="TsunamiGraph" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_qrkc0")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph"]
+layout_mode = 2
+text = "Tsunami Meter"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnergyHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
+layout_mode = 2
+
+[node name="EnergyIcon" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_yvtb5")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+value = 87.0
+rounded = true
+
+[node name="ShelterHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
+layout_mode = 2
+
+[node name="EnergyIcon" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_v1bdg")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+value = 37.0
+rounded = true
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.1
+
+[node name="RightVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResourceCounts" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
+layout_mode = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="BuildingMaterialCount" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="BuildingMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/BuildingMaterialCount"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_gwk6t")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/BuildingMaterialCount"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount"]
 layout_mode = 2
 text = "x100"
 horizontal_alignment = 1
 
-[node name="FoodMaterialCount" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="FoodMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/FoodMaterialCount"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_xjfbv")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/FoodMaterialCount"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount"]
 layout_mode = 2
 text = "x99"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="WaveBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
 
-[node name="HouseHealth" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Row0" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer2/HouseHealth"]
+[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row0"]
 layout_mode = 2
-texture = SubResource("GradientTexture2D_ru5ln")
-expand_mode = 3
-stretch_mode = 4
+size_flags_horizontal = 3
+text = "???"
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/VBoxContainer2/HouseHealth"]
-custom_minimum_size = Vector2(100, 0)
+[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row0"]
 layout_mode = 2
-size_flags_vertical = 4
-rounded = true
+size_flags_horizontal = 3
+text = "???"
+
+[node name="Row1" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox"]
+layout_mode = 2
+
+[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Radio"
+
+[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Infrared"

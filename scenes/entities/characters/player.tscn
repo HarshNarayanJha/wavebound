@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
 [ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
 [ext_resource type="Script" uid="uid://dwhll7oygxx36" path="res://scripts/entities/characters/player/input_handler.gd" id="3_co01m"]
+[ext_resource type="Texture2D" uid="uid://fk1tm4pauf7l" path="res://textures/player_circle.png" id="3_p0kre"]
 [ext_resource type="Script" uid="uid://br3lj1b7s8pja" path="res://scripts/fsm/state_machine.gd" id="4_4ic3m"]
 [ext_resource type="Script" uid="uid://36q0i8gk8oqt" path="res://scripts/entities/characters/player/states/state_idle.gd" id="5_5tcp7"]
 [ext_resource type="Script" uid="uid://kcm0qfet0h4w" path="res://scripts/entities/characters/player/states/state_walk.gd" id="6_lc2x5"]
@@ -15,19 +16,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
-[sub_resource type="Gradient" id="Gradient_5tcp7"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.41960785)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lc2x5"]
-gradient = SubResource("Gradient_5tcp7")
-width = 1
-height = 1
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_co01m"]
 radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0kre"]
+radius = 20.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
 collision_layer = 2
@@ -38,12 +31,33 @@ player_data = ExtResource("2_gi2yv")
 state_machine = NodePath("StateMachine")
 input = NodePath("InputHandler")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.1764706)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_p0kre")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_maef2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(16, 16)
-texture = SubResource("GradientTexture2D_lc2x5")
+[node name="InteractionManager" type="Area2D" parent="." node_paths=PackedStringArray("player")]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("12_lc2x5")
+player = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InteractionManager"]
+shape = SubResource("CircleShape2D_co01m")
+debug_color = Color(0.26978898, 0.63313717, 7.70092e-07, 0.41960785)
+
+[node name="MaterialPicker" type="Area2D" parent="." node_paths=PackedStringArray("inventory")]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("9_co01m")
+inventory = NodePath("../InventoryManager")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MaterialPicker"]
+shape = SubResource("CircleShape2D_p0kre")
+debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_co01m")
@@ -74,27 +88,7 @@ time_gap = 1.5
 crumb_offset = 9.2
 player = NodePath("..")
 
-[node name="MaterialPicker" type="Area2D" parent="." node_paths=PackedStringArray("inventory")]
-collision_layer = 2
-collision_mask = 8
-script = ExtResource("9_co01m")
-inventory = NodePath("../InventoryManager")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MaterialPicker"]
-shape = SubResource("CircleShape2D_co01m")
-debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)
-
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("10_5tcp7")
 inventory = ExtResource("11_lc2x5")
 metadata/_custom_type_script = "uid://didgmfiar2i13"
-
-[node name="InteractionManager" type="Area2D" parent="." node_paths=PackedStringArray("player")]
-collision_layer = 2
-collision_mask = 8
-script = ExtResource("12_lc2x5")
-player = NodePath("..")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="InteractionManager"]
-shape = SubResource("CircleShape2D_co01m")
-debug_color = Color(0.99627763, 0, 0.1984548, 0.41960785)

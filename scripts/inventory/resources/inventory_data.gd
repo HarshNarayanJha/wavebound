@@ -1,7 +1,7 @@
 class_name InventoryData extends Resource
 
 class ItemStack:
-	const MAX_STACK = 999
+	const MAX_STACK = 9999
 
 	var item: MaterialData
 	var count: int = 0

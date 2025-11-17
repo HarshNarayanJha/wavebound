@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dy286qwlhovo6" path="res://scripts/entities/objects/shelter.gd" id="1_ihi8j"]
 [ext_resource type="Resource" uid="uid://w3e6h54hxber" path="res://resources/objects/shelter_data.tres" id="2_hga22"]
-[ext_resource type="Texture2D" uid="uid://dwshuoxdubqqm" path="res://textures/map_icons/Shelter.png" id="3_37sv0"]
+[ext_resource type="Texture2D" uid="uid://dniav2tadkcbs" path="res://textures/map_icons/shelter/Shelter-100.png" id="3_37sv0"]
 [ext_resource type="PackedScene" uid="uid://dxtv5l1kat33s" path="res://scenes/components/interaction_area.tscn" id="3_gph84"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hga22"]
@@ -21,7 +21,7 @@ sprite = NodePath("Sprite2D")
 interaction_area = NodePath("InteractionArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_37sv0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

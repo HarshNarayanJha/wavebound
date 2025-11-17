@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oks4uwnbsc5"
-path="res://.godot/imported/Shelter-Unconstructed.png-c4c651b2c3a7775842a56a731e539198.ctex"
+uid="uid://d245qyy4lli02"
+path="res://.godot/imported/Shelter-Broken.png-054c16eeed8a8f35c6d0ba0a4264155d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/map_icons/Shelter-Unconstructed.png"
-dest_files=["res://.godot/imported/Shelter-Unconstructed.png-c4c651b2c3a7775842a56a731e539198.ctex"]
+source_file="res://textures/map_icons/shelter/Shelter-Broken.png"
+dest_files=["res://.godot/imported/Shelter-Broken.png-054c16eeed8a8f35c6d0ba0a4264155d.ctex"]
 
 [params]
 
