@@ -33,3 +33,4 @@ func spawn_materials() -> void:
 		)
 
 		mNode.set_quantity(random_quantities[rng.rand_weighted(weights)])
+		mNode.sprite.scale *= (1 + (mNode.quantity / random_quantities.max()))

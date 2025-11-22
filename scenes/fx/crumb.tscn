@@ -9,4 +9,5 @@ width = 4
 height = 2
 
 [node name="Crumb" type="Sprite2D"]
+visible = false
 texture = SubResource("GradientTexture2D_8u6wj")
