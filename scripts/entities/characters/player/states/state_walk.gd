@@ -1,5 +1,8 @@
 extends PlayerBaseState
 
+@export var inventory_data: InventoryData
+@export var energy_cost: float = 0.05
+
 func enter() -> void:
 	pass
 
@@ -7,8 +10,7 @@ func exit() -> void:
 	pass
 
 func process(_delta: float) -> StringName:
-	#if input.scan_pressed:
-		#return STATE_SPRINT
+	inventory_data.use_energy(energy_cost * _delta)
 
 	return STATE_WALK
 

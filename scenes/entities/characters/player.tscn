@@ -81,6 +81,7 @@ script = ExtResource("5_5tcp7")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("6_lc2x5")
+inventory_data = ExtResource("11_lc2x5")
 
 [node name="Scan" type="Node" parent="StateMachine"]
 script = ExtResource("7_p0kre")

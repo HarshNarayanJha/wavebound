@@ -117,8 +117,17 @@ func update_energy_replenish_button() -> void:
 	replenish_energy_button.disabled = true
 	replenish_energy_button.set_text(text)
 
-func _try_replenish_energy() -> void:
-	print("Trying to replenish energy")
+func _try_replenish_energy() -> bool:
+	var cost := inventory_data.get_energy_refill_cost()
+	if inventory_data._remove_item(energy_mat, cost):
+		if inventory_data.recharge_energy(true):
+			return true
+
+		# add back if can't refill
+		inventory_data._add_item(energy_mat, cost)
+		return false
+
+	return false
 
 func _try_repair_shelter() -> bool:
 	var cost := shelter_data.get_building_cost()

@@ -29,11 +29,12 @@ class ItemStack:
 		return false
 
 
-@export var max_energy := 100
-@export var initial_energy := 0
-@export var base_energy_cost := 100
+@export var max_energy := 100.0
+@export var initial_energy := 0.0
+@export var base_energy_cost := 10
+@export var base_energy_recharge := 20.0
 
-var _current_energy: int = -1
+var _current_energy: float = -1
 
 var items: Dictionary[String, ItemStack]
 
@@ -44,15 +45,15 @@ signal item_removed(old_stack: ItemStack, new_stack: ItemStack)
 signal inventory_updated
 
 # energy signals
-signal energy_depleted(amount: int)
-signal energy_restored(amount: int)
-signal energy_updated(old_energy: int, new_energy: int)
+signal energy_depleted(amount: float)
+signal energy_restored(amount: float)
+signal energy_updated(old_energy: float, new_energy: float)
 
 func init() -> void:
 	_current_energy = initial_energy
 	energy_updated.emit(0, _current_energy)
 
-func use_energy(amount: int) -> bool:
+func use_energy(amount: float) -> bool:
 	if _current_energy - amount >= 0:
 		_current_energy -= amount
 		energy_depleted.emit(amount)
@@ -61,18 +62,24 @@ func use_energy(amount: int) -> bool:
 
 	return false
 
-func recharge_energy(amount: int) -> bool:
+func recharge_energy(force := false, amount: float = base_energy_recharge) -> bool:
 	if _current_energy + amount <= max_energy:
 		_current_energy += amount
 		energy_restored.emit(amount)
 		energy_updated.emit(_current_energy - amount, _current_energy)
 		return true
 
+	if force:
+		_current_energy = max_energy
+		energy_restored.emit(amount)
+		energy_updated.emit(_current_energy - amount, _current_energy)
+		return true
+
 	return false
 
-func get_current_energy() -> int:
+func get_current_energy() -> float:
 	return _current_energy
-	
+
 func get_energy_refill_cost() -> int:
 	return base_energy_cost
 
