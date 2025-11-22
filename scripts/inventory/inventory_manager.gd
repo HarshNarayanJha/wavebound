@@ -2,6 +2,9 @@ class_name InventoryManager extends Node
 
 @export var inventory: InventoryData
 
+func _ready() -> void:
+	inventory.init()
+
 func add_one(item: MaterialData) -> bool:
 	return inventory._add_item(item)
 

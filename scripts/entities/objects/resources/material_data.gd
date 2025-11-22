@@ -2,7 +2,7 @@ class_name MaterialData extends Resource
 
 enum MaterialType {
 	BUILDING,
-	FOOD
+	ENERGY
 }
 
 ## Texture of the material visible in the map

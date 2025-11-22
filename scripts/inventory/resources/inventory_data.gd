@@ -28,13 +28,53 @@ class ItemStack:
 
 		return false
 
+
+@export var max_energy := 100
+@export var initial_energy := 0
+@export var base_energy_cost := 100
+
+var _current_energy: int = -1
+
 var items: Dictionary[String, ItemStack]
 
-# signals
-
+## signals
+# item signals
 signal item_added(old_stack: ItemStack, new_stack: ItemStack)
 signal item_removed(old_stack: ItemStack, new_stack: ItemStack)
 signal inventory_updated
+
+# energy signals
+signal energy_depleted(amount: int)
+signal energy_restored(amount: int)
+signal energy_updated(old_energy: int, new_energy: int)
+
+func init() -> void:
+	_current_energy = initial_energy
+	energy_updated.emit(0, _current_energy)
+
+func use_energy(amount: int) -> bool:
+	if _current_energy - amount >= 0:
+		_current_energy -= amount
+		energy_depleted.emit(amount)
+		energy_updated.emit(_current_energy + amount, _current_energy)
+		return true
+
+	return false
+
+func recharge_energy(amount: int) -> bool:
+	if _current_energy + amount <= max_energy:
+		_current_energy += amount
+		energy_restored.emit(amount)
+		energy_updated.emit(_current_energy - amount, _current_energy)
+		return true
+
+	return false
+
+func get_current_energy() -> int:
+	return _current_energy
+	
+func get_energy_refill_cost() -> int:
+	return base_energy_cost
 
 func _add_item(item: MaterialData, qty: int = 1) -> bool:
 	if items.has(item.name):

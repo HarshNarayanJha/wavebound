@@ -19,12 +19,19 @@ func _ready() -> void:
 	if debug: CLogger.d(TAG, "Current State: " + shelter_data.ShelterState.keys()[shelter_data.get_current_state()])
 
 	shelter_data.health_updated.connect(_update_sprite)
+
 	interaction_area.interact.connect(_shelter_interact)
+	interaction_area.body_entered.connect(_player_arrived_shelter)
+	interaction_area.body_exited.connect(_player_left_shelter)
+
 	_update_sprite(shelter_data.get_current_health(), shelter_data.get_current_health())
 
 func _exit_tree() -> void:
 	shelter_data.health_updated.disconnect(_update_sprite)
+
 	interaction_area.interact.disconnect(_shelter_interact)
+	interaction_area.body_entered.disconnect(_player_arrived_shelter)
+	interaction_area.body_exited.disconnect(_player_left_shelter)
 
 func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_0):
@@ -44,3 +51,11 @@ func _update_sprite(_o: int, _n: int):
 func _shelter_interact():
 	if debug: CLogger.d(TAG, "Shelter interacted")
 	repair_damage(5)
+
+func _player_arrived_shelter(body: Node2D) -> void:
+	if body is Player:
+		shelter_data.player_at_shelter()
+
+func _player_left_shelter(body: Node2D) -> void:
+	if body is Player:
+		shelter_data.player_left_shelter()

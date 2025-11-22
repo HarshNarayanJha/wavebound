@@ -22,7 +22,7 @@ radius = 15.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0kre"]
 radius = 20.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "input", "inventory")]
 collision_layer = 2
 collision_mask = 25
 motion_mode = 1
@@ -30,6 +30,7 @@ script = ExtResource("1_gtv6q")
 player_data = ExtResource("2_gi2yv")
 state_machine = NodePath("StateMachine")
 input = NodePath("InputHandler")
+inventory = NodePath("InventoryManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.1764706)
@@ -40,6 +41,7 @@ texture = ExtResource("3_p0kre")
 shape = SubResource("CircleShape2D_maef2")
 
 [node name="InteractionManager" type="Area2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(-1, 0)
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("12_lc2x5")

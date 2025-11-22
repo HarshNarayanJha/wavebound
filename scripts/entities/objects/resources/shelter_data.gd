@@ -13,11 +13,18 @@ enum ShelterState {
 @export var action_names: Dictionary[ShelterState, String] = {}
 @export var max_health := 100
 @export var initial_health := 0
+@export var base_building_price := 50
+@export var base_repair_price := 50
+@export var base_repair_amount := 20
 
 # signals
 signal damaged(amount: int)
 signal repaired(amount: int)
 signal health_updated(old_health: int, new_health: int)
+
+signal player_near_shelter
+
+var _is_player_near := false
 
 var _current_sprite: Texture2D
 var _current_state: ShelterState
@@ -54,17 +61,40 @@ func init() -> void:
 	_current_sprite = sprites[_current_state]
 	health_updated.emit(0, _current_health)
 
-func apply_damage(amount: int) -> int:
-	damaged.emit(amount)
-	_current_health -= amount
+func player_at_shelter():
+	CLogger.d("SHELTER DATA", "Player is near shelter")
+	_is_player_near = true
+	player_near_shelter.emit()
 
-	return _current_health
+func player_left_shelter():
+	CLogger.d("SHELTER DATA", "Player left shelter")
+	_is_player_near = false
+	player_near_shelter.emit()
 
-func repair_damage(amount: int) -> int:
-	repaired.emit(amount)
-	_current_health += amount
+func is_player_near():
+	return _is_player_near
 
-	return _current_health
+func apply_damage(amount: int) -> bool:
+	if _current_health - amount >= 0:
+		_current_health -= amount
+		damaged.emit(amount)
+		return true
+
+	return false
+
+func repair_damage(force: bool = false, amount: int = base_repair_amount) -> bool:
+	if _current_health + amount <= max_health:
+		_current_health += amount
+		repaired.emit(amount)
+		return true
+
+	if force:
+		var old_health = _current_health
+		_current_health = max_health
+		repaired.emit(old_health - _current_health)
+		return true
+
+	return false
 
 func get_current_health() -> int:
 	return _current_health
@@ -77,3 +107,9 @@ func get_current_sprite() -> Texture2D:
 
 func get_current_action_name() -> String:
 	return action_names[_current_state]
+
+func get_building_cost() -> int:
+	if _current_state == ShelterState.UNCONSTRUCTED:
+		return base_building_price
+
+	return base_repair_price

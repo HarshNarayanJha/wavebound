@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="2_xjfbv"]
 [ext_resource type="Resource" uid="uid://ww4cf2xeas76" path="res://resources/materials/building_material.tres" id="3_bma8u"]
 [ext_resource type="Resource" uid="uid://w3e6h54hxber" path="res://resources/objects/shelter_data.tres" id="3_ru5ln"]
-[ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/food_material.tres" id="4_fct72"]
+[ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/energy_material.tres" id="4_fct72"]
 [ext_resource type="Texture2D" uid="uid://dcuclb72c0vcw" path="res://textures/Radar UI.png" id="6_v1bdg"]
 [ext_resource type="Texture2D" uid="uid://whev7huisttr" path="res://textures/Radar_UI_CrossHair.png" id="7_k7elv"]
 [ext_resource type="Shader" uid="uid://dagtqb8qy27no" path="res://shaders/crt_fisheye.gdshader" id="7_qrkc0"]
@@ -56,7 +56,7 @@ height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "food_label", "shelter_health_bar", "crt_filter")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "crt_filter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,13 +65,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gwk6t")
 building_mat_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount/Label")
-food_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount/Label")
 shelter_health_bar = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox/ProgressBar")
+repair_shelter_button = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox/RepairShelterButton")
+energy_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount/Label")
+energy_cell_bar = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/ProgressBar")
+replenish_energy_button = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/ReplenishEnergyButton")
 crt_filter = NodePath("PanelContainer/CRTFish")
 inventory_data = ExtResource("2_xjfbv")
 shelter_data = ExtResource("3_ru5ln")
 building_mat = ExtResource("3_bma8u")
-food_mat = ExtResource("4_fct72")
+energy_mat = ExtResource("4_fct72")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -140,6 +143,11 @@ layout_mode = 2
 value = 87.0
 rounded = true
 
+[node name="ReplenishEnergyButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
+layout_mode = 2
+disabled = true
+text = "Replenish"
+
 [node name="ShelterHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
 layout_mode = 2
 
@@ -154,6 +162,11 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 value = 37.0
 rounded = true
+
+[node name="RepairShelterButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
+layout_mode = 2
+disabled = true
+text = "Repair"
 
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox"]
 layout_mode = 2
@@ -188,17 +201,17 @@ layout_mode = 2
 text = "x100"
 horizontal_alignment = 1
 
-[node name="FoodMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
+[node name="EnergyMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_xjfbv")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/FoodMaterialCount"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount"]
 layout_mode = 2
 text = "x99"
 horizontal_alignment = 1
