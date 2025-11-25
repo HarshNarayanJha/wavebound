@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=26 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://dv1are383yxjc" path="res://scenes/icons/forest_1.tscn" id="9_j30dx"]
 [ext_resource type="PackedScene" uid="uid://bceurkhw3t078" path="res://scenes/components/material_spawner.tscn" id="10_x1amm"]
 [ext_resource type="PackedScene" uid="uid://p0h8vm3tcxu7" path="res://scenes/ui/game_ui.tscn" id="11_2bfhc"]
+[ext_resource type="Resource" uid="uid://tuhoebnxv27c" path="res://resources/ui/notification_data.tres" id="13_q6c7b"]
+[ext_resource type="Script" uid="uid://ds0bv1kmotaup" path="res://scripts/components/tsunami_controller.gd" id="17_2ilni"]
+[ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="18_d3jfy"]
 
 [sub_resource type="Resource" id="Resource_rlvb3"]
 script = ExtResource("3_osidk")
@@ -281,6 +284,7 @@ script = ExtResource("5_osidk")
 player_scene = ExtResource("6_o6wi6")
 spawn_position = NodePath("Marker2D")
 main_camera = NodePath("../../../PhantomCamera2D")
+notifcation_data = ExtResource("13_q6c7b")
 
 [node name="Marker2D" type="Marker2D" parent="Map/Spawners/PlayerSpawner"]
 position = Vector2(-2795, -165)
@@ -352,6 +356,16 @@ label_settings = SubResource("LabelSettings_x1amm")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="CanvasLayer" instance=ExtResource("11_2bfhc")]
+
+[node name="TsunamiController" type="Node" parent="." node_paths=PackedStringArray("tsunami_timer")]
+script = ExtResource("17_2ilni")
+debug = true
+tsunami_data = ExtResource("18_d3jfy")
+tsunami_timer = NodePath("Timer")
+prediction_interval = 15.0
+metadata/_custom_type_script = "uid://ds0bv1kmotaup"
+
+[node name="Timer" type="Timer" parent="TsunamiController"]
 
 [editable path="Map/Spawners/MaterialSpawner1"]
 [editable path="Map/Spawners/MaterialSpawner2"]

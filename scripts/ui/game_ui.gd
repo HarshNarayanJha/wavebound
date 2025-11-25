@@ -11,6 +11,17 @@ extends Control
 @export var energy_cell_bar: ProgressBar
 @export var replenish_energy_button: Button
 
+@export_subgroup("Tsunami")
+@export var tsunami_data: TsunamiData
+@export var next_tsunami_label: Label
+@export var tsunami_coutdown_progress: ProgressBar
+
+@export_subgroup("Notification")
+@export var notifications_list: Control
+@export var notification_scene: PackedScene
+@export var notification_data: NotificationData
+@export var task_label: Label
+
 @export_subgroup("Misc")
 @export var crt_filter: TextureRect
 
@@ -22,12 +33,18 @@ extends Control
 @export var building_mat: MaterialData
 @export var energy_mat: MaterialData
 
+var tw: Tween
+
 func _ready() -> void:
 	update_item_count()
 	update_shelter_healthbar(0, shelter_data.get_current_health())
 	update_energy_bar(0, inventory_data.get_current_energy())
 	update_shelter_repair_button()
 	update_energy_replenish_button()
+	update_next_tsunami_label()
+
+	initialize_notifications()
+	initialize_task()
 
 	inventory_data.inventory_updated.connect(_inventory_updated)
 
@@ -39,7 +56,17 @@ func _ready() -> void:
 
 	shelter_data.player_near_shelter.connect(update_shelter_repair_button)
 
+	tsunami_data.predictions_updated.connect(_on_tsunami_updated)
+	tsunami_coutdown_progress.value = 1.0
+
+	notification_data.new_notification.connect(_on_new_notification)
+	notification_data.set_task.connect(_on_set_task)
+
 	crt_filter.show()
+
+func _on_tsunami_updated(time_sec: float) -> void:
+	update_next_tsunami_label()
+	update_tsunami_timer(time_sec)
 
 func _inventory_updated() -> void:
 	update_item_count()
@@ -54,6 +81,25 @@ func _energy_updated(o: float, n: float) -> void:
 	update_energy_bar(o, n)
 	update_energy_replenish_button()
 
+func _on_new_notification(notif: NotificationData.Notif) -> void:
+	add_notification(notif)
+
+func _on_set_task(task: NotificationData.Notif) -> void:
+	update_task(task)
+
+func update_next_tsunami_label() -> void:
+	next_tsunami_label.set_text(tsunami_data.get_next_prediction_text())
+
+func update_tsunami_timer(time_sec: float) -> void:
+	if tw:
+		tw.kill()
+		tw = null
+
+	tsunami_coutdown_progress.value = 1
+	var tween = get_tree().create_tween()
+	tween.tween_property(tsunami_coutdown_progress, "value", 0, time_sec)
+	tw = tween
+
 func update_item_count() -> void:
 	building_mat_label.set_text("x%d" % inventory_data.get_count(building_mat))
 	energy_label.set_text("x%d" % inventory_data.get_count(energy_mat))
@@ -63,6 +109,24 @@ func update_shelter_healthbar(_o: float, n: float)-> void:
 
 func update_energy_bar(_o: float, n: float)-> void:
 	energy_cell_bar.value = n
+
+func initialize_notifications() -> void:
+	for c in notifications_list.get_children():
+		notifications_list.remove_child(c)
+		c.queue_free()
+
+func initialize_task() -> void:
+	task_label.set_text("No task assigned")
+
+func add_notification(notif: NotificationData.Notif) -> void:
+	var notiff: Control = notification_scene.instantiate()
+	notifications_list.add_child(notiff)
+	notiff.set_position(Vector2(0, 0))
+	notiff.set_text(notif.text)
+	notiff.set_type(notif.type)
+
+func update_task(task: NotificationData.Notif) -> void:
+	task_label.set_text(task.text)
 
 func update_shelter_repair_button() -> void:
 	CLogger.d("GAME UI", "updating shelter repair button")
@@ -151,3 +215,8 @@ func _exit_tree() -> void:
 	replenish_energy_button.pressed.disconnect(_try_replenish_energy)
 
 	shelter_data.player_near_shelter.disconnect(update_shelter_repair_button)
+
+	tsunami_data.predictions_updated.disconnect(_on_tsunami_updated)
+
+	notification_data.new_notification.disconnect(_on_new_notification)
+	notification_data.set_task.disconnect(_on_set_task)

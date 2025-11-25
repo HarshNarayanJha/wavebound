@@ -54,13 +54,19 @@ func init() -> void:
 	energy_updated.emit(0, _current_energy)
 
 func use_energy(amount: float) -> bool:
+	if _current_energy <= 0:
+		return false
+
 	if _current_energy - amount >= 0:
 		_current_energy -= amount
 		energy_depleted.emit(amount)
 		energy_updated.emit(_current_energy + amount, _current_energy)
-		return true
+	else:
+		_current_energy = 0
+		energy_depleted.emit(amount)
+		energy_updated.emit(_current_energy + amount, _current_energy)
 
-	return false
+	return true
 
 func recharge_energy(force := false, amount: float = base_energy_recharge) -> bool:
 	if _current_energy + amount <= max_energy:

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="wavebound"
+config/name="Wavebound"
 run/main_scene="uid://dd54cgosb5ucn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
@@ -18,6 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 
 [editor_plugins]
 

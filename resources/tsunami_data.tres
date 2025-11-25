@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TsunamiData" load_steps=2 format=3 uid="uid://dk0l64qstuw3i"]
+
+[ext_resource type="Script" uid="uid://cyvn888v62nml" path="res://scripts/resources/tsunami_data.gd" id="1_0bsdy"]
+
+[resource]
+script = ExtResource("1_0bsdy")
+tsunami_damage = Dictionary[int, float]({
+0: 0.0,
+1: 1.0,
+2: 5.0,
+3: 15.0
+})
+tsunami_level_text = Dictionary[int, String]({
+0: "Safe",
+1: "Low",
+2: "Moderate",
+3: "Risky"
+})
+metadata/_custom_type_script = "uid://cyvn888v62nml"

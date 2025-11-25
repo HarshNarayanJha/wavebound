@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="NotificationData" load_steps=2 format=3 uid="uid://tuhoebnxv27c"]
+
+[ext_resource type="Script" uid="uid://degc355x0fee4" path="res://scripts/ui/resources/notification_data.gd" id="1_3e3d8"]
+
+[resource]
+script = ExtResource("1_3e3d8")
+metadata/_custom_type_script = "uid://degc355x0fee4"

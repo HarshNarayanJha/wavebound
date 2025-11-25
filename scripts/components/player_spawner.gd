@@ -4,6 +4,7 @@ extends Node
 @export var spawn_position: Marker2D
 @export var main_camera: PhantomCamera2D
 @export var spawn_at_ready := true
+@export var notifcation_data: NotificationData
 
 signal player_spawned(player: Player)
 
@@ -25,3 +26,9 @@ func spawn_player() -> void:
 	main_camera.follow_target = spawn
 
 	player_spawned.emit(spawn)
+
+	await get_tree().create_timer(2).timeout
+	notifcation_data.send_notification("Welcome to the 3-day island challenge!", NotificationData.NotifType.INFO)
+
+	await get_tree().create_timer(5).timeout
+	notifcation_data.send_notification("Collect materials on the island and build a shelter before nightfall!", NotificationData.NotifType.TASK)

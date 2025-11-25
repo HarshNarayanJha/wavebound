@@ -75,12 +75,17 @@ func is_player_near():
 	return _is_player_near
 
 func apply_damage(amount: int) -> bool:
+	if _current_health <= 0:
+		return false
+
 	if _current_health - amount >= 0:
 		_current_health -= amount
 		damaged.emit(amount)
-		return true
+	else:
+		_current_health = 0
+		damaged.emit(amount)
 
-	return false
+	return true
 
 func repair_damage(force: bool = false, amount: int = base_repair_amount) -> bool:
 	if _current_health + amount <= max_health:
