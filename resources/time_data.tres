@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TimeData" load_steps=2 format=3 uid="uid://buf7ekvn62f4p"]
+
+[ext_resource type="Script" uid="uid://dgguxeslw6lb2" path="res://scripts/resources/time_data.gd" id="1_5hnm2"]
+
+[resource]
+script = ExtResource("1_5hnm2")
+metadata/_custom_type_script = "uid://dgguxeslw6lb2"

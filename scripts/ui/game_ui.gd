@@ -1,5 +1,7 @@
 extends Control
 
+@export var debug := false
+
 @export_category("References")
 @export_subgroup("Shelter")
 @export var building_mat_label: Label
@@ -22,12 +24,17 @@ extends Control
 @export var notification_data: NotificationData
 @export var task_label: Label
 
+@export_subgroup("Time")
+@export var time_progress_dict: Dictionary[TimeData.DayTime, TextureProgressBar]
+@export var day_counter: Label
+
 @export_subgroup("Misc")
 @export var crt_filter: TextureRect
 
 @export_category("Signals")
 @export var inventory_data: InventoryData
 @export var shelter_data: ShelterData
+@export var time_data: TimeData
 
 @export_category("Item References")
 @export var building_mat: MaterialData
@@ -45,6 +52,7 @@ func _ready() -> void:
 
 	initialize_notifications()
 	initialize_task()
+	initialize_time_display()
 
 	inventory_data.inventory_updated.connect(_inventory_updated)
 
@@ -61,6 +69,10 @@ func _ready() -> void:
 
 	notification_data.new_notification.connect(_on_new_notification)
 	notification_data.set_task.connect(_on_set_task)
+
+	time_data.second_tick.connect(_on_time_second_tick)
+	time_data.day_time_changed.connect(_on_day_time_changed)
+	time_data.day_changed.connect(_on_day_changed)
 
 	crt_filter.show()
 
@@ -118,6 +130,49 @@ func initialize_notifications() -> void:
 func initialize_task() -> void:
 	task_label.set_text("No task assigned")
 
+func initialize_time_display() -> void:
+	time_progress_dict[TimeData.DayTime.DAY].value = 0
+	time_progress_dict[TimeData.DayTime.NIGHT].value = 0
+	day_counter.set_text(str(time_data.get_current_day()))
+
+func _on_time_second_tick() -> void:
+	if time_data.get_current_day_time() == TimeData.DayTime.DAY:
+		# time_progress_dict[TimeData.DayTime.DAY].value = time_data.get_current_time() / time_data.day_duration
+		get_tree().create_tween().tween_property(
+			time_progress_dict[TimeData.DayTime.DAY],
+			"value",
+			time_data.get_current_time() / time_data.day_duration,
+			time_data.get_second_duration()
+		)
+	elif time_data.get_current_day_time() == TimeData.DayTime.NIGHT:
+		# time_progress_dict[TimeData.DayTime.NIGHT].value = (time_data.get_current_time() - time_data.day_duration) / time_data.night_duration
+		get_tree().create_tween().tween_property(
+			time_progress_dict[TimeData.DayTime.NIGHT],
+			"value",
+			(time_data.get_current_time() - time_data.day_duration) / time_data.night_duration,
+			time_data.get_second_duration()
+		)
+
+func _on_day_time_changed(day_time: TimeData.DayTime) -> void:
+	print("Day Time Changed to %d" % day_time)
+
+func _on_day_changed(day: int) -> void:
+	# time_progress_dict[TimeData.DayTime.DAY].value = 0
+	# time_progress_dict[TimeData.DayTime.NIGHT].value = 0
+	get_tree().create_tween().tween_property(
+		time_progress_dict[TimeData.DayTime.DAY],
+		"value",
+		0,
+		time_data.get_second_duration() / 3.0
+	)
+	get_tree().create_tween().tween_property(
+		time_progress_dict[TimeData.DayTime.NIGHT],
+		"value",
+		0,
+		time_data.get_second_duration() / 3.0
+	)
+	day_counter.set_text(str(day))
+
 func add_notification(notif: NotificationData.Notif) -> void:
 	var notiff: Control = notification_scene.instantiate()
 	notifications_list.add_child(notiff)
@@ -129,7 +184,7 @@ func update_task(task: NotificationData.Notif) -> void:
 	task_label.set_text(task.text)
 
 func update_shelter_repair_button() -> void:
-	CLogger.d("GAME UI", "updating shelter repair button")
+	if debug: CLogger.d("GAME UI", "updating shelter repair button")
 
 	var text = shelter_data.get_current_action_name()
 
@@ -220,3 +275,7 @@ func _exit_tree() -> void:
 
 	notification_data.new_notification.disconnect(_on_new_notification)
 	notification_data.set_task.disconnect(_on_set_task)
+
+	time_data.second_tick.disconnect(_on_time_second_tick)
+	time_data.day_time_changed.disconnect(_on_day_time_changed)
+	time_data.day_changed.disconnect(_on_day_changed)

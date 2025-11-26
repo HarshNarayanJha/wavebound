@@ -9,6 +9,7 @@ class_name TsunamiController extends Node
 @export var prediction_interval_offset: float = 2
 @export var prediction_error: float = 0.1
 @export var start_already := false
+@export var time_data: TimeData
 
 var rng = RandomNumberGenerator.new()
 
@@ -18,11 +19,16 @@ func _ready() -> void:
 	if start_already:
 		begin_cycles()
 	else:
-		tsunami_data.begin_tsunami_cycles.connect(begin_cycles)
+		time_data.day_time_changed.connect(begin_cycles)
 
-func begin_cycles() -> void:
-	generate_predictions()
-	setup_wave_timer()
+func begin_cycles(day_time: TimeData.DayTime = TimeData.DayTime.DAY, day: int = 0) -> void:
+	if day_time == TimeData.DayTime.NIGHT and day == 1:
+		generate_predictions()
+		setup_wave_timer()
+		# prevent from hitting again
+		time_data.day_time_changed.disconnect(begin_cycles)
+	else:
+		push_error("CANNOT START wave cycles at this point")
 
 func generate_predictions() -> void:
 	# tsunami_data.predictions.clear()
@@ -80,4 +86,4 @@ func get_all_predictions() -> Array[TsunamiData.TsunamiLevel]:
 	return tsunami_data.predictions.duplicate()
 
 func _exit_tree() -> void:
-	tsunami_data.begin_tsunami_cycles.disconnect(begin_cycles)
+	time_data.day_time_changed.disconnect(begin_cycles)

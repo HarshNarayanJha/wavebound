@@ -11,8 +11,6 @@ var weights := PackedFloat32Array([1, 0.8, 0.5, 0.1])
 signal wave_hit(level: TsunamiLevel)
 signal predictions_updated(time_sec: float)
 
-signal begin_tsunami_cycles
-
 func get_next_prediction() -> TsunamiLevel:
 	if predictions.is_empty():
 		return TsunamiData.TsunamiLevel.NONE

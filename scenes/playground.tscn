@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=28 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -19,6 +19,8 @@
 [ext_resource type="Resource" uid="uid://tuhoebnxv27c" path="res://resources/ui/notification_data.tres" id="13_q6c7b"]
 [ext_resource type="Script" uid="uid://ds0bv1kmotaup" path="res://scripts/components/tsunami_controller.gd" id="17_2ilni"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="18_d3jfy"]
+[ext_resource type="Resource" uid="uid://buf7ekvn62f4p" path="res://resources/time_data.tres" id="20_wm6m6"]
+[ext_resource type="PackedScene" uid="uid://byskp0cwyipil" path="res://scenes/components/time_manager.tscn" id="20_x2tju"]
 
 [sub_resource type="Resource" id="Resource_rlvb3"]
 script = ExtResource("3_osidk")
@@ -355,7 +357,11 @@ label_settings = SubResource("LabelSettings_x1amm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GameUI" parent="CanvasLayer" instance=ExtResource("11_2bfhc")]
+[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("time_progress_dict") instance=ExtResource("11_2bfhc")]
+time_progress_dict = {
+0: NodePath("PanelContainer/DayProgressBar"),
+1: NodePath("PanelContainer/NightProgressBar")
+}
 
 [node name="TsunamiController" type="Node" parent="." node_paths=PackedStringArray("tsunami_timer")]
 script = ExtResource("17_2ilni")
@@ -363,11 +369,21 @@ debug = true
 tsunami_data = ExtResource("18_d3jfy")
 tsunami_timer = NodePath("Timer")
 prediction_interval = 15.0
+time_data = ExtResource("20_wm6m6")
 metadata/_custom_type_script = "uid://ds0bv1kmotaup"
 
 [node name="Timer" type="Timer" parent="TsunamiController"]
+
+[node name="TimeManager" parent="." instance=ExtResource("20_x2tju")]
+
+[node name="DebugLabel" parent="TimeManager" index="1"]
+offset_left = -2831.0
+offset_top = -164.0
+offset_right = -2560.0
+offset_bottom = -97.0
 
 [editable path="Map/Spawners/MaterialSpawner1"]
 [editable path="Map/Spawners/MaterialSpawner2"]
 [editable path="Map/Spawners/MaterialSpawner"]
 [editable path="Map/Spawners/MaterialSpawner3"]
+[editable path="TimeManager"]
