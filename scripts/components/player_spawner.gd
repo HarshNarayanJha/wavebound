@@ -31,4 +31,4 @@ func spawn_player() -> void:
 	notifcation_data.send_notification("Welcome to the 3-day island challenge!", NotificationData.NotifType.INFO)
 
 	await get_tree().create_timer(5).timeout
-	notifcation_data.send_notification("Collect materials on the island and build a shelter before nightfall!", NotificationData.NotifType.TASK)
+	notifcation_data.send_notification("Collect materials on the island and build a shelter before nightfall", NotificationData.NotifType.TASK)

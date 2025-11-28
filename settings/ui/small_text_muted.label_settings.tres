@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cu1j5hojlnawo"]
+
+[ext_resource type="FontFile" uid="uid://bixqnkgxouipl" path="res://fonts/Blazma-Regular.ttf" id="1_usj6y"]
+
+[resource]
+font = ExtResource("1_usj6y")
+font_size = 20
+font_color = Color(0.33015278, 0.4686725, 0.3672633, 1)

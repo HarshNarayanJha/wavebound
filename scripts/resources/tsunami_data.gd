@@ -18,6 +18,6 @@ func get_next_prediction() -> TsunamiLevel:
 
 func get_next_prediction_text() -> String:
 	if predictions.is_empty():
-		return "No prediction"
+		return "Unknown"
 
 	return tsunami_level_text[get_next_prediction()]

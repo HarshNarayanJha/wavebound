@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=33 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="2_bxde6"]
@@ -15,6 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://crxq2qkbt3rdj" path="res://scenes/ui/notification.tscn" id="11_bxde6"]
 [ext_resource type="Texture2D" uid="uid://bxmmjyeti6lk0" path="res://textures/Radar_UI_Time_Circle-Day.png" id="12_aq72h"]
 [ext_resource type="Texture2D" uid="uid://br87tl3xlpk83" path="res://textures/Radar_UI_Time_Circle-Night.png" id="13_oqj4c"]
+[ext_resource type="PackedScene" uid="uid://bfbfjby76d64i" path="res://scenes/ui/wave_button.tscn" id="16_oqj4c"]
+[ext_resource type="Texture2D" uid="uid://ce558l5fih25m" path="res://textures/ui/bg/Card X6.png" id="16_pbku6"]
+[ext_resource type="LabelSettings" uid="uid://cu1j5hojlnawo" path="res://settings/ui/small_text_muted.label_settings.tres" id="17_5bpyr"]
+[ext_resource type="LabelSettings" uid="uid://33ybvcxbexn4" path="res://settings/ui/large_text.label_settings.tres" id="18_5bpyr"]
+[ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="19_84uof"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq72h"]
 bg_color = Color(0.14509805, 0.14509805, 0.14509805, 0.627451)
@@ -26,15 +31,18 @@ texture = ExtResource("6_v1bdg")
 shader = ExtResource("7_qrkc0")
 shader_parameter/fisheye_strength = 1.1
 
-[sub_resource type="Gradient" id="Gradient_v1bdg"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbku6"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrkc0"]
-gradient = SubResource("Gradient_v1bdg")
-height = 128
-
-[sub_resource type="LabelSettings" id="LabelSettings_fftnl"]
-font_size = 32
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbku6"]
+bg_color = Color(0, 0.7411765, 0.5647059, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="Gradient" id="Gradient_qrkc0"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -68,15 +76,6 @@ width = 16
 height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="LabelSettings" id="LabelSettings_x0n6o"]
-font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_opxtl"]
-font_size = 18
-
-[sub_resource type="LabelSettings" id="LabelSettings_crnce"]
-font_size = 20
 
 [node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter")]
 layout_mode = 3
@@ -194,7 +193,9 @@ theme_override_constants/separation = 8
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph"]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 2
-texture = SubResource("GradientTexture2D_qrkc0")
+texture = ExtResource("16_pbku6")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect"]
 layout_mode = 1
@@ -207,14 +208,16 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer"]
 layout_mode = 2
-text = "Next Tsunami"
+text = "Next Tsunami
+"
+label_settings = ExtResource("17_5bpyr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TsunamiNext" type="Label" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer"]
 layout_mode = 2
 text = "HIGH"
-label_settings = SubResource("LabelSettings_fftnl")
+label_settings = ExtResource("18_5bpyr")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
@@ -222,23 +225,20 @@ uppercase = true
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 42
 theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxEmpty_pbku6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pbku6")
 max_value = 1.0
 step = 0.0
-value = 0.8
+value = 1.0
 show_percentage = false
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph"]
-visible = false
-layout_mode = 2
-text = "Tsunami Status"
-horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
 layout_mode = 2
@@ -343,12 +343,13 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/DayContainer"]
 layout_mode = 2
-text = "Day:    "
+text = "Day: "
+label_settings = ExtResource("17_5bpyr")
 
 [node name="DayCounter" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/DayContainer"]
 layout_mode = 2
 text = "1"
-label_settings = SubResource("LabelSettings_x0n6o")
+label_settings = ExtResource("18_5bpyr")
 
 [node name="ObjectiveContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 custom_minimum_size = Vector2(100, 250)
@@ -359,14 +360,14 @@ alignment = 1
 layout_mode = 2
 text = "Current Objective
 "
-label_settings = SubResource("LabelSettings_opxtl")
+label_settings = ExtResource("17_5bpyr")
 horizontal_alignment = 1
 
 [node name="TaskLabel" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ObjectiveContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Go to the castle"
-label_settings = SubResource("LabelSettings_crnce")
+label_settings = ExtResource("19_84uof")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -391,24 +392,33 @@ size_flags_vertical = 3
 
 [node name="WaveControlsBox" type="GridContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
+size_flags_vertical = 3
 columns = 2
 
-[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
+[node name="TrailCrumbsToggleButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "???"
+toggle_mode = true
+button_pressed = true
 
-[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "???"
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton" index="0"]
+text = "Trailcrumbs"
 
-[node name="RadioButton2" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
+[node name="NightVisionWaveButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Radio"
 
-[node name="InfraredButton2" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton" index="0"]
+text = "Night Vision"
+
+[node name="RadioWaveButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Infrared"
+toggle_mode = true
+
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton" index="0"]
+text = "Radio Wave"
+
+[node name="WaveButton4" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
+layout_mode = 2
+
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton"]

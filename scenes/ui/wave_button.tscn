@@ -1,16 +1,38 @@
-[gd_scene format=3 uid="uid://bfbfjby76d64i"]
+[gd_scene load_steps=6 format=3 uid="uid://bfbfjby76d64i"]
+
+[ext_resource type="Texture2D" uid="uid://nnxxnaqydf11" path="res://textures/ui/button2/Button Normal.png" id="1_y3rvj"]
+[ext_resource type="Texture2D" uid="uid://b86t58vkiyaq1" path="res://textures/ui/button2/Button Active.png" id="2_e6x28"]
+[ext_resource type="Texture2D" uid="uid://dbr4xa1bgllm2" path="res://textures/ui/button2/Button Hover.png" id="3_4g5uu"]
+[ext_resource type="Texture2D" uid="uid://c46wca7cq2rih" path="res://textures/ui/button2/Button Disable.png" id="4_mkyob"]
+[ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="5_e6x28"]
 
 [node name="WaveButton" type="TextureButton"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+custom_minimum_size = Vector2(210, 70)
+anchors_preset = -1
+anchor_right = 0.109000005
+anchor_bottom = 0.065000005
+offset_right = 0.71998596
+offset_bottom = -0.20000458
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_y3rvj")
+texture_pressed = ExtResource("2_e6x28")
+texture_hover = ExtResource("3_4g5uu")
+texture_disabled = ExtResource("4_mkyob")
+texture_focused = ExtResource("1_y3rvj")
+stretch_mode = 5
+flip_v = true
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="."]
+[node name="ButtonText" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "Button"
+label_settings = ExtResource("5_e6x28")
+horizontal_alignment = 1
+vertical_alignment = 1
