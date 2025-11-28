@@ -1,13 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfttext65sqwh"]
+[gd_scene load_steps=2 format=3 uid="uid://dfttext65sqwh"]
 
-[sub_resource type="Gradient" id="Gradient_85upw"]
-colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8u6wj"]
-gradient = SubResource("Gradient_85upw")
-width = 4
-height = 2
+[ext_resource type="Texture2D" uid="uid://der44o0sfng04" path="res://textures/LightRadius.png" id="1_8u6wj"]
 
 [node name="Crumb" type="Sprite2D"]
-visible = false
-texture = SubResource("GradientTexture2D_8u6wj")
+scale = Vector2(0.1, 0.025)
+texture = ExtResource("1_8u6wj")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 1, 0, 1)
+energy = 0.5
+texture = ExtResource("1_8u6wj")

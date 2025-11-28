@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b55b6vjex0cve"]
+[gd_scene load_steps=18 format=3 uid="uid://b55b6vjex0cve"]
 
 [ext_resource type="Script" uid="uid://dly0nkj0d03yk" path="res://scripts/entities/characters/player/player.gd" id="1_gtv6q"]
 [ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="2_gi2yv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://didgmfiar2i13" path="res://scripts/inventory/inventory_manager.gd" id="10_5tcp7"]
 [ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="11_lc2x5"]
 [ext_resource type="Script" uid="uid://cr175f01utdxv" path="res://scripts/components/interaction_manager.gd" id="12_lc2x5"]
+[ext_resource type="Texture2D" uid="uid://der44o0sfng04" path="res://textures/LightRadius.png" id="14_vp7hs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_maef2"]
 
@@ -95,3 +96,8 @@ player = NodePath("..")
 script = ExtResource("10_5tcp7")
 inventory = ExtResource("11_lc2x5")
 metadata/_custom_type_script = "uid://didgmfiar2i13"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+texture = ExtResource("14_vp7hs")
+texture_scale = 0.25

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=32 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="2_bxde6"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://crxq2qkbt3rdj" path="res://scenes/ui/notification.tscn" id="11_bxde6"]
 [ext_resource type="Texture2D" uid="uid://bxmmjyeti6lk0" path="res://textures/Radar_UI_Time_Circle-Day.png" id="12_aq72h"]
 [ext_resource type="Texture2D" uid="uid://br87tl3xlpk83" path="res://textures/Radar_UI_Time_Circle-Night.png" id="13_oqj4c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq72h"]
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 0.627451)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
 texture = ExtResource("6_v1bdg")
@@ -108,6 +111,16 @@ shelter_data = ExtResource("3_ru5ln")
 time_data = ExtResource("7_x0n6o")
 building_mat = ExtResource("3_bma8u")
 energy_mat = ExtResource("4_fct72")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aq72h")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -274,7 +287,7 @@ text = "Repair"
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/MainHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 2.4
 
 [node name="RightVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox"]
 layout_mode = 2
@@ -322,7 +335,7 @@ horizontal_alignment = 1
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
+size_flags_stretch_ratio = 0.25
 
 [node name="DayContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
@@ -344,7 +357,8 @@ alignment = 1
 
 [node name="ObjectiveLabel" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ObjectiveContainer"]
 layout_mode = 2
-text = "Current Objective"
+text = "Current Objective
+"
 label_settings = SubResource("LabelSettings_opxtl")
 horizontal_alignment = 1
 
@@ -360,6 +374,7 @@ autowrap_mode = 3
 [node name="Control3" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="NotificationGroup" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 custom_minimum_size = Vector2(0, 200)
@@ -374,31 +389,26 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="WaveBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
+[node name="WaveControlsBox" type="GridContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
+columns = 2
 
-[node name="Row0" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox"]
-layout_mode = 2
-
-[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row0"]
+[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "???"
 
-[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row0"]
+[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "???"
 
-[node name="Row1" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox"]
-layout_mode = 2
-
-[node name="RadioButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row1"]
+[node name="RadioButton2" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Radio"
 
-[node name="InfraredButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveBox/Row1"]
+[node name="InfraredButton2" type="Button" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Infrared"

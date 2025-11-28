@@ -43,6 +43,11 @@ font_color = Color(0, 0, 0, 1)
 
 [node name="Playground" type="Node2D"]
 
+[node name="NightLight" type="DirectionalLight2D" parent="."]
+visible = false
+energy = 0.98
+blend_mode = 1
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2795, -165)
 zoom = Vector2(3, 3)
@@ -374,7 +379,8 @@ metadata/_custom_type_script = "uid://ds0bv1kmotaup"
 
 [node name="Timer" type="Timer" parent="TsunamiController"]
 
-[node name="TimeManager" parent="." instance=ExtResource("20_x2tju")]
+[node name="TimeManager" parent="." node_paths=PackedStringArray("night_light") instance=ExtResource("20_x2tju")]
+night_light = NodePath("../NightLight")
 
 [node name="DebugLabel" parent="TimeManager" index="1"]
 offset_left = -2831.0
