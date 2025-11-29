@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://8g8rg7kcw7s2"]
+
+[ext_resource type="Texture2D" uid="uid://nnxxnaqydf11" path="res://textures/ui/button2/Button Normal.png" id="1_2lk8j"]
+[ext_resource type="Texture2D" uid="uid://b86t58vkiyaq1" path="res://textures/ui/button2/Button Active.png" id="2_k2qii"]
+[ext_resource type="Texture2D" uid="uid://dbr4xa1bgllm2" path="res://textures/ui/button2/Button Hover.png" id="3_0vmvl"]
+[ext_resource type="Texture2D" uid="uid://c46wca7cq2rih" path="res://textures/ui/button2/Button Disable.png" id="4_t7270"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03x2p"]
+texture = ExtResource("1_2lk8j")
+texture_margin_left = 16.0
+texture_margin_top = 4.0
+texture_margin_right = 16.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.28235295, 0.74509805, 0.67058825, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4oucs"]
+texture = ExtResource("2_k2qii")
+texture_margin_left = 16.0
+texture_margin_top = 4.0
+texture_margin_right = 16.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.79087543, 1, 0.6111612, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gv6bi"]
+texture = ExtResource("3_0vmvl")
+texture_margin_left = 16.0
+texture_margin_top = 4.0
+texture_margin_right = 16.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.57325023, 0.86250514, 0.7983309, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pgu6j"]
+texture = ExtResource("4_t7270")
+texture_margin_left = 16.0
+texture_margin_top = 4.0
+texture_margin_right = 16.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.14117648, 0.62352943, 0.8901961, 0.654902)
+
+[node name="ReplenishEnergyButton" type="Button"]
+theme_override_styles/normal = SubResource("StyleBoxTexture_03x2p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4oucs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_gv6bi")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pgu6j")
+text = "Button"

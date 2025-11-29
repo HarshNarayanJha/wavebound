@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=31 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="2_bxde6"]
@@ -21,6 +21,7 @@
 [ext_resource type="LabelSettings" uid="uid://33ybvcxbexn4" path="res://settings/ui/large_text.label_settings.tres" id="18_5bpyr"]
 [ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="19_84uof"]
 [ext_resource type="Texture2D" uid="uid://ddnupbl870rv8" path="res://textures/ui/icons/energy_icon.png" id="19_cyqav"]
+[ext_resource type="PackedScene" uid="uid://8g8rg7kcw7s2" path="res://scenes/ui/small_button.tscn" id="20_4oucs"]
 [ext_resource type="Texture2D" uid="uid://coj01wc3ji3sm" path="res://textures/ui/icons/shelter_icon.png" id="20_baxkn"]
 [ext_resource type="Texture2D" uid="uid://b4qtdxa6ddqpe" path="res://textures/ui/icons/material_icon.png" id="21_plh64"]
 [ext_resource type="LabelSettings" uid="uid://cmqk1n6lddjy6" path="res://settings/ui/extra_large_text.label_settings.tres" id="21_t1jn2"]
@@ -220,7 +221,7 @@ layout_mode = 2
 value = 87.0
 rounded = true
 
-[node name="ReplenishEnergyButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
+[node name="ReplenishEnergyButton" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox" instance=ExtResource("20_4oucs")]
 layout_mode = 2
 disabled = true
 text = "Replenish"
@@ -241,7 +242,13 @@ layout_mode = 2
 value = 37.0
 rounded = true
 
-[node name="RepairShelterButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
+[node name="RepairShelterButton3" type="Button" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
+visible = false
+layout_mode = 2
+disabled = true
+text = "Repair"
+
+[node name="RepairShelterButton" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox" instance=ExtResource("20_4oucs")]
 layout_mode = 2
 disabled = true
 text = "Repair"
