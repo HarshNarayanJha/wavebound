@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=30 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="2_bxde6"]
@@ -20,12 +20,15 @@
 [ext_resource type="LabelSettings" uid="uid://cu1j5hojlnawo" path="res://settings/ui/small_text_muted.label_settings.tres" id="17_5bpyr"]
 [ext_resource type="LabelSettings" uid="uid://33ybvcxbexn4" path="res://settings/ui/large_text.label_settings.tres" id="18_5bpyr"]
 [ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="19_84uof"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq72h"]
-bg_color = Color(0.14509805, 0.14509805, 0.14509805, 0.627451)
+[ext_resource type="Texture2D" uid="uid://ddnupbl870rv8" path="res://textures/ui/icons/energy_icon.png" id="19_cyqav"]
+[ext_resource type="Texture2D" uid="uid://coj01wc3ji3sm" path="res://textures/ui/icons/shelter_icon.png" id="20_baxkn"]
+[ext_resource type="Texture2D" uid="uid://b4qtdxa6ddqpe" path="res://textures/ui/icons/material_icon.png" id="21_plh64"]
+[ext_resource type="LabelSettings" uid="uid://cmqk1n6lddjy6" path="res://settings/ui/extra_large_text.label_settings.tres" id="21_t1jn2"]
+[ext_resource type="Texture2D" uid="uid://s3bs3hcleo4q" path="res://textures/ui/icons/energy_drop_icon.png" id="22_t1jn2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
 texture = ExtResource("6_v1bdg")
+modulate_color = Color(0.34117648, 0.9019608, 0.8117647, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qrkc0"]
 shader = ExtResource("7_qrkc0")
@@ -43,39 +46,6 @@ expand_margin_left = 1.0
 expand_margin_top = 1.0
 expand_margin_right = 1.0
 expand_margin_bottom = 1.0
-
-[sub_resource type="Gradient" id="Gradient_qrkc0"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_yvtb5"]
-gradient = SubResource("Gradient_qrkc0")
-width = 16
-height = 16
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v1bdg"]
-gradient = SubResource("Gradient_qrkc0")
-width = 16
-height = 16
-
-[sub_resource type="Gradient" id="Gradient_1ndix"]
-colors = PackedColorArray(0.4392157, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gwk6t"]
-gradient = SubResource("Gradient_1ndix")
-width = 16
-height = 16
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_gwk6t"]
-colors = PackedColorArray(0.54901963, 0.8745098, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xjfbv"]
-gradient = SubResource("Gradient_gwk6t")
-width = 16
-height = 16
-fill = 1
-fill_from = Vector2(0.5, 0.5)
 
 [node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter")]
 layout_mode = 3
@@ -103,23 +73,13 @@ time_progress_dict = {
 0: NodePath("PanelContainer/DayProgressBar"),
 1: NodePath("PanelContainer/NightProgressBar")
 }
-day_counter = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/DayContainer/DayCounter")
+day_counter = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/DayContainer/DayCounter")
 crt_filter = NodePath("PanelContainer/CRTFish")
 inventory_data = ExtResource("2_xjfbv")
 shelter_data = ExtResource("3_ru5ln")
 time_data = ExtResource("7_x0n6o")
 building_mat = ExtResource("3_bma8u")
 energy_mat = ExtResource("4_fct72")
-
-[node name="Panel" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aq72h")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -246,12 +206,13 @@ size_flags_vertical = 3
 
 [node name="EnergyHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="EnergyIcon" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
 layout_mode = 2
-texture = SubResource("GradientTexture2D_yvtb5")
+texture = ExtResource("19_cyqav")
 expand_mode = 2
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
 custom_minimum_size = Vector2(200, 0)
@@ -266,12 +227,13 @@ text = "Replenish"
 
 [node name="ShelterHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="EnergyIcon" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
 layout_mode = 2
-texture = SubResource("GradientTexture2D_v1bdg")
+texture = ExtResource("20_baxkn")
 expand_mode = 2
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/ShelterHBox"]
 custom_minimum_size = Vector2(200, 0)
@@ -297,63 +259,77 @@ size_flags_horizontal = 3
 layout_mode = 2
 alignment = 2
 
+[node name="DayContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/DayContainer"]
+layout_mode = 2
+text = "Day: "
+label_settings = ExtResource("19_84uof")
+
+[node name="DayCounter" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/DayContainer"]
+layout_mode = 2
+text = "1"
+label_settings = ExtResource("21_t1jn2")
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_constants/separation = 8
 
 [node name="BuildingMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = SubResource("GradientTexture2D_gwk6t")
+size_flags_horizontal = 3
+texture = ExtResource("21_plh64")
+expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/BuildingMaterialCount"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "x100"
-horizontal_alignment = 1
+label_settings = ExtResource("19_84uof")
+vertical_alignment = 1
 
 [node name="EnergyMaterialCount" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = SubResource("GradientTexture2D_xjfbv")
+size_flags_horizontal = 3
+texture = ExtResource("22_t1jn2")
+expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "x99"
-horizontal_alignment = 1
+label_settings = ExtResource("19_84uof")
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 
-[node name="DayContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/DayContainer"]
-layout_mode = 2
-text = "Day: "
-label_settings = ExtResource("17_5bpyr")
-
-[node name="DayCounter" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/DayContainer"]
-layout_mode = 2
-text = "1"
-label_settings = ExtResource("18_5bpyr")
-
 [node name="ObjectiveContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
-custom_minimum_size = Vector2(100, 250)
+custom_minimum_size = Vector2(450, 250)
 layout_mode = 2
+size_flags_horizontal = 8
 alignment = 1
 
 [node name="ObjectiveLabel" type="Label" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/ObjectiveContainer"]
@@ -378,13 +354,10 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="NotificationGroup" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(480, 200)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 2
-
-[node name="Notification" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/NotificationGroup" instance=ExtResource("11_bxde6")]
-layout_mode = 2
 
 [node name="Control2" type="Control" parent="PanelContainer/MarginContainer/MainHBox/RightVBox"]
 layout_mode = 2

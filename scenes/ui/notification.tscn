@@ -1,18 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://crxq2qkbt3rdj"]
+[gd_scene load_steps=8 format=3 uid="uid://crxq2qkbt3rdj"]
 
+[ext_resource type="Texture2D" uid="uid://csy5c2idmq1sy" path="res://textures/ui/button/Btn03.png" id="1_jvqrl"]
 [ext_resource type="Script" uid="uid://dbcjs1tftu4pk" path="res://scripts/ui/notification_item.gd" id="1_u4fg0"]
-
-[sub_resource type="Gradient" id="Gradient_fftnl"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bxde6"]
-gradient = SubResource("Gradient_fftnl")
-width = 8
-height = 8
-
-[sub_resource type="LabelSettings" id="LabelSettings_bxde6"]
-font_size = 18
-font_color = Color(0, 0, 0, 1)
+[ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="2_5bafy"]
 
 [sub_resource type="Animation" id="Animation_5bafy"]
 length = 0.001
@@ -66,7 +56,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.40000004),
 "transitions": PackedFloat32Array(0.5, 0.5),
 "update": 0,
-"values": [Vector2(500, 0), Vector2(0, 0)]
+"values": [Vector2(800, 0), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -106,7 +96,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(0.5, 0.5),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(500, 0)]
+"values": [Vector2(0, 0), Vector2(800, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -142,12 +132,12 @@ _data = {
 
 [node name="Notification" type="TextureRect" node_paths=PackedStringArray("label", "animation")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(380, 64)
+custom_minimum_size = Vector2(450, 90)
 offset_left = 500.0
-offset_right = 880.0001
-offset_bottom = 64.0
+offset_right = 980.0
+offset_bottom = 90.0
 scale = Vector2(1e-05, 1)
-texture = SubResource("GradientTexture2D_bxde6")
+texture = ExtResource("1_jvqrl")
 script = ExtResource("1_u4fg0")
 label = NodePath("MarginContainer/HBoxContainer/Label")
 animation = NodePath("AnimationPlayer")
@@ -160,9 +150,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -172,7 +162,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Notification Content Goes Here"
-label_settings = SubResource("LabelSettings_bxde6")
+label_settings = ExtResource("2_5bafy")
 horizontal_alignment = 2
 vertical_alignment = 1
 autowrap_mode = 3

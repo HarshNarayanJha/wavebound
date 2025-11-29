@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cmqk1n6lddjy6"]
+
+[ext_resource type="FontFile" uid="uid://08miysn43iiq" path="res://fonts/Robtronika-Regular.ttf" id="1_656dv"]
+
+[resource]
+font = ExtResource("1_656dv")
+font_size = 48
+font_color = Color(0.14827186, 1, 0.7294006, 1)

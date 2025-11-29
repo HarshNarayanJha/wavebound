@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=33 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b55b6vjex0cve" path="res://scenes/entities/characters/player.tscn" id="6_o6wi6"]
 [ext_resource type="PackedScene" uid="uid://ejcaujaycowj" path="res://scenes/icons/grass_small_1.tscn" id="6_rlvb3"]
 [ext_resource type="PackedScene" uid="uid://kgysmxrnwwxn" path="res://scenes/icons/flower_1.tscn" id="7_k63md"]
+[ext_resource type="Resource" uid="uid://dvjh5jf10web3" path="res://resources/materials/energy_material.tres" id="7_rdeg0"]
+[ext_resource type="Resource" uid="uid://ww4cf2xeas76" path="res://resources/materials/building_material.tres" id="7_reluu"]
 [ext_resource type="PackedScene" uid="uid://kxjlgu6jq5rv" path="res://scenes/icons/rock_large_1.tscn" id="8_fn4oh"]
 [ext_resource type="PackedScene" uid="uid://cwfclcw4hmkia" path="res://scenes/entities/objects/material_pickable.tscn" id="8_mrac1"]
 [ext_resource type="PackedScene" uid="uid://c0a5stjp7fr1p" path="res://scenes/entities/objects/food_pickable.tscn" id="9_2q4k0"]
@@ -21,6 +23,9 @@
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="18_d3jfy"]
 [ext_resource type="Resource" uid="uid://buf7ekvn62f4p" path="res://resources/time_data.tres" id="20_wm6m6"]
 [ext_resource type="PackedScene" uid="uid://byskp0cwyipil" path="res://scenes/components/time_manager.tscn" id="20_x2tju"]
+[ext_resource type="Script" uid="uid://i8ff4gv2quam" path="res://scripts/components/sequence_controller.gd" id="21_wm6m6"]
+[ext_resource type="Resource" uid="uid://w3e6h54hxber" path="res://resources/objects/shelter_data.tres" id="22_ocmmj"]
+[ext_resource type="Resource" uid="uid://bfnj45pdpqmq4" path="res://resources/player_inventory.tres" id="23_vwj6b"]
 
 [sub_resource type="Resource" id="Resource_rlvb3"]
 script = ExtResource("3_osidk")
@@ -42,6 +47,38 @@ font_size = 68
 font_color = Color(0, 0, 0, 1)
 
 [node name="Playground" type="Node2D"]
+
+[node name="SequenceController" type="Node" parent="." node_paths=PackedStringArray("player_spawner")]
+script = ExtResource("21_wm6m6")
+player_spawner = NodePath("../Map/Spawners/PlayerSpawner")
+time_data = ExtResource("20_wm6m6")
+tsunami_data = ExtResource("18_d3jfy")
+shelter_data = ExtResource("22_ocmmj")
+inventory_data = ExtResource("23_vwj6b")
+notification_data = ExtResource("13_q6c7b")
+building_mat = ExtResource("7_reluu")
+energy_mat = ExtResource("7_rdeg0")
+metadata/_custom_type_script = "uid://i8ff4gv2quam"
+
+[node name="TsunamiController" type="Node" parent="." node_paths=PackedStringArray("tsunami_timer")]
+script = ExtResource("17_2ilni")
+debug = true
+tsunami_data = ExtResource("18_d3jfy")
+tsunami_timer = NodePath("Timer")
+prediction_interval = 15.0
+time_data = ExtResource("20_wm6m6")
+metadata/_custom_type_script = "uid://ds0bv1kmotaup"
+
+[node name="Timer" type="Timer" parent="TsunamiController"]
+
+[node name="TimeManager" parent="." node_paths=PackedStringArray("night_light") instance=ExtResource("20_x2tju")]
+night_light = NodePath("../NightLight")
+
+[node name="DebugLabel" parent="TimeManager" index="1"]
+offset_left = -2831.0
+offset_top = -164.0
+offset_right = -2560.0
+offset_bottom = -97.0
 
 [node name="NightLight" type="DirectionalLight2D" parent="."]
 visible = false
@@ -291,7 +328,6 @@ script = ExtResource("5_osidk")
 player_scene = ExtResource("6_o6wi6")
 spawn_position = NodePath("Marker2D")
 main_camera = NodePath("../../../PhantomCamera2D")
-notifcation_data = ExtResource("13_q6c7b")
 
 [node name="Marker2D" type="Marker2D" parent="Map/Spawners/PlayerSpawner"]
 position = Vector2(-2795, -165)
@@ -368,28 +404,8 @@ time_progress_dict = {
 1: NodePath("PanelContainer/NightProgressBar")
 }
 
-[node name="TsunamiController" type="Node" parent="." node_paths=PackedStringArray("tsunami_timer")]
-script = ExtResource("17_2ilni")
-debug = true
-tsunami_data = ExtResource("18_d3jfy")
-tsunami_timer = NodePath("Timer")
-prediction_interval = 15.0
-time_data = ExtResource("20_wm6m6")
-metadata/_custom_type_script = "uid://ds0bv1kmotaup"
-
-[node name="Timer" type="Timer" parent="TsunamiController"]
-
-[node name="TimeManager" parent="." node_paths=PackedStringArray("night_light") instance=ExtResource("20_x2tju")]
-night_light = NodePath("../NightLight")
-
-[node name="DebugLabel" parent="TimeManager" index="1"]
-offset_left = -2831.0
-offset_top = -164.0
-offset_right = -2560.0
-offset_bottom = -97.0
-
+[editable path="TimeManager"]
 [editable path="Map/Spawners/MaterialSpawner1"]
 [editable path="Map/Spawners/MaterialSpawner2"]
 [editable path="Map/Spawners/MaterialSpawner"]
 [editable path="Map/Spawners/MaterialSpawner3"]
-[editable path="TimeManager"]
