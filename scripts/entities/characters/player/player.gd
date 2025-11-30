@@ -10,6 +10,7 @@ class_name Player extends CharacterBody2D
 
 var controls_enabled := true
 var camera: PhantomCamera2D = null
+var shelter: Node2D
 
 #var direction := Vector2.ZERO
 
@@ -17,20 +18,13 @@ func _ready() -> void:
 	assert(player_data != null, "Player Data Not Set!")
 	state_machine.init(self)
 
-	#hurtbox.took_damage.connect(_took_damage)
-	#health.died.connect(game_over)
+	player_data.wrap_to_shelter.connect(_wrap_to_shelter)
 
-	#unlock_controls()
+	unlock_controls()
 
 func _process(_delta: float) -> void:
 	if controls_enabled:
 		input.update()
-
-func _took_damage(amount: int, hitbox_position: Vector2, knockback: float):
-	#var shake = procam.get_addons()[0]
-	#shake.shake()
-	await get_tree().create_timer(0.2).timeout
-	#shake.stop()
 
 func lock_controls() -> void:
 	controls_enabled = false
@@ -38,9 +32,14 @@ func lock_controls() -> void:
 	velocity = Vector2.ZERO
 
 func unlock_controls() -> void:
-	#print("Controls Unlocked")
 	controls_enabled = true
 
 func game_over() -> void:
 	#SceneManager.change_scene("res://Scenes/main_menu.tscn")
 	queue_free()
+
+func _wrap_to_shelter() -> void:
+	self.global_position = shelter.global_position
+
+func _exit_tree() -> void:
+	player_data.wrap_to_shelter.disconnect(_wrap_to_shelter)

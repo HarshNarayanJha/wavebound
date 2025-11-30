@@ -3,6 +3,7 @@ class_name PlayerSpawner extends Node
 @export var player_scene: PackedScene
 @export var spawn_position: Marker2D
 @export var main_camera: PhantomCamera2D
+@export var shelter: Shelter
 @export var spawn_at_ready := true
 
 signal player_spawned(player: Player)
@@ -24,5 +25,6 @@ func spawn_player() -> void:
 	spawn.global_position =spawn_position.global_position
 	spawn.camera = main_camera
 	main_camera.follow_target = spawn
+	spawn.shelter = shelter
 
 	player_spawned.emit(spawn)

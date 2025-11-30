@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://p0h8vm3tcxu7"]
+[gd_scene load_steps=32 format=3 uid="uid://p0h8vm3tcxu7"]
 
 [ext_resource type="Script" uid="uid://cg3j40qclolxt" path="res://scripts/ui/game_ui.gd" id="1_gwk6t"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="2_bxde6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://whev7huisttr" path="res://textures/Radar_UI_CrossHair.png" id="7_k7elv"]
 [ext_resource type="Shader" uid="uid://dagtqb8qy27no" path="res://shaders/crt_fisheye.gdshader" id="7_qrkc0"]
 [ext_resource type="Resource" uid="uid://buf7ekvn62f4p" path="res://resources/time_data.tres" id="7_x0n6o"]
+[ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="8_03x2p"]
 [ext_resource type="Texture2D" uid="uid://b0o6ffdk8rf35" path="res://textures/Radar UI_Circle.png" id="8_yvtb5"]
 [ext_resource type="PackedScene" uid="uid://crxq2qkbt3rdj" path="res://scenes/ui/notification.tscn" id="11_bxde6"]
 [ext_resource type="Texture2D" uid="uid://bxmmjyeti6lk0" path="res://textures/Radar_UI_Time_Circle-Day.png" id="12_aq72h"]
@@ -48,7 +49,7 @@ expand_margin_top = 1.0
 expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "energy_use_mult_label", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "energy_use_mult_label", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter", "wrap_to_shelter_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,9 +78,11 @@ time_progress_dict = {
 }
 day_counter = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/DayContainer/DayCounter")
 crt_filter = NodePath("PanelContainer/CRTFish")
+wrap_to_shelter_button = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/WrapToShelterButton")
 inventory_data = ExtResource("2_xjfbv")
 shelter_data = ExtResource("3_ru5ln")
 time_data = ExtResource("7_x0n6o")
+player_data = ExtResource("8_03x2p")
 building_mat = ExtResource("3_bma8u")
 energy_mat = ExtResource("4_fct72")
 
@@ -403,8 +406,12 @@ toggle_mode = true
 [node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton" index="0"]
 text = "Night Vision"
 
-[node name="WaveButton4" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
+[node name="WrapToShelterButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
+
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/WrapToShelterButton" index="0"]
+text = "Wrap to Shelter
+x500 Energy"
 
 [node name="TrailCrumbsToggleButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 visible = false
@@ -417,4 +424,5 @@ text = "Trailcrumbs"
 
 [editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton"]
 [editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/WrapToShelterButton"]
 [editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]

@@ -74,7 +74,6 @@ metadata/_custom_type_script = "uid://ds0bv1kmotaup"
 [node name="Timer" type="Timer" parent="TsunamiController"]
 
 [node name="TimeManager" parent="." node_paths=PackedStringArray("night_light") instance=ExtResource("20_x2tju")]
-second_duration = 0.1
 night_light = NodePath("../NightLight")
 
 [node name="DebugLabel" parent="TimeManager" index="1"]
@@ -338,11 +337,12 @@ tsunami_data = ExtResource("18_d3jfy")
 
 [node name="Spawners" type="Node2D" parent="Map"]
 
-[node name="PlayerSpawner" type="Node" parent="Map/Spawners" node_paths=PackedStringArray("spawn_position", "main_camera")]
+[node name="PlayerSpawner" type="Node" parent="Map/Spawners" node_paths=PackedStringArray("spawn_position", "main_camera", "shelter")]
 script = ExtResource("5_osidk")
 player_scene = ExtResource("6_o6wi6")
 spawn_position = NodePath("Marker2D")
 main_camera = NodePath("../../../PhantomCamera2D")
+shelter = NodePath("../../Objects/Shelter")
 
 [node name="Marker2D" type="Marker2D" parent="Map/Spawners/PlayerSpawner"]
 position = Vector2(-2795, -165)
@@ -423,4 +423,5 @@ time_progress_dict = {
 [editable path="CanvasLayer/GameUI"]
 [editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton"]
 [editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/WaveButton4"]
 [editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]

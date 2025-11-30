@@ -20,7 +20,7 @@ action_names = Dictionary[int, String]({
 0: "Build Shelter",
 1: "Repair Shelter",
 2: "Patch Shelter",
-3: "Sleep at Shelter",
+3: "Fix Shelter",
 4: "Game Over"
 })
 metadata/_custom_type_script = "uid://dlchyepdlxqxw"

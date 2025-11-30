@@ -31,11 +31,13 @@ extends Control
 
 @export_subgroup("Misc")
 @export var crt_filter: TextureRect
+@export var wrap_to_shelter_button: TextureButton
 
 @export_category("Signals")
 @export var inventory_data: InventoryData
 @export var shelter_data: ShelterData
 @export var time_data: TimeData
+@export var player_data: PlayerData
 
 @export_category("Item References")
 @export var building_mat: MaterialData
@@ -49,6 +51,7 @@ func _ready() -> void:
 	update_energy_bar(0, inventory_data.get_current_energy())
 	update_shelter_repair_button()
 	update_energy_replenish_button()
+	update_wrap_to_shelter_button()
 	update_next_tsunami_label()
 
 	initialize_notifications()
@@ -77,6 +80,8 @@ func _ready() -> void:
 
 	crt_filter.show()
 
+	wrap_to_shelter_button.pressed.connect(_wrap_to_shelter)
+
 func _on_tsunami_updated(time_sec: float) -> void:
 	update_next_tsunami_label()
 	update_tsunami_timer(time_sec)
@@ -85,6 +90,7 @@ func _inventory_updated() -> void:
 	update_item_count()
 	update_shelter_repair_button()
 	update_energy_replenish_button()
+	update_wrap_to_shelter_button()
 
 func _shelter_health_updated(o: float, n: float) -> void:
 	update_shelter_healthbar(o, n)
@@ -93,6 +99,7 @@ func _shelter_health_updated(o: float, n: float) -> void:
 func _energy_updated(o: float, n: float) -> void:
 	update_energy_bar(o, n)
 	update_energy_replenish_button()
+	update_wrap_to_shelter_button()
 
 func _on_new_notification(notif: NotificationData.Notif) -> void:
 	add_notification(notif)
@@ -240,6 +247,21 @@ func update_energy_replenish_button() -> void:
 	replenish_energy_button.disabled = true
 	replenish_energy_button.set_text(text)
 
+func update_wrap_to_shelter_button() -> void:
+	if shelter_data.is_player_near():
+		# cannot wrap
+		wrap_to_shelter_button.disabled = true
+		return
+
+	var has_material := (inventory_data.get_count(energy_mat) >= 500)
+
+	if has_material:
+		wrap_to_shelter_button.disabled = false
+		return
+
+	# cannot wrap
+	wrap_to_shelter_button.disabled = true
+
 func _try_replenish_energy() -> bool:
 	var cost := inventory_data.get_energy_refill_cost()
 	if inventory_data._remove_item(energy_mat, cost):
@@ -264,6 +286,17 @@ func _try_repair_shelter() -> bool:
 
 	return false
 
+func _wrap_to_shelter() -> void:
+	if shelter_data.is_player_near():
+		return
+
+	if inventory_data._remove_item(energy_mat, 500):
+		if player_data.to_shelter():
+			return
+
+		# add back if can't wrap
+		inventory_data._add_item(energy_mat, 500)
+
 func _exit_tree() -> void:
 	inventory_data.inventory_updated.disconnect(_inventory_updated)
 
@@ -283,3 +316,5 @@ func _exit_tree() -> void:
 	time_data.second_tick.disconnect(_on_time_second_tick)
 	time_data.day_time_changed.disconnect(_on_day_time_changed)
 	time_data.day_changed.disconnect(_on_day_changed)
+
+	wrap_to_shelter_button.pressed.disconnect(_wrap_to_shelter)

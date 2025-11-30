@@ -19,10 +19,14 @@ var initial_task_given := false
 var building_mat_notif_sent := false
 var energy_mat_notif_sent := false
 
+signal game_over
+
 func _ready() -> void:
 	# initial set of notifications
 	player_spawner.player_spawned.connect(_show_initial_notifications)
 	inventory_data.inventory_updated.connect(_show_inventory_material_notification)
+
+	time_data.day_time_changed.connect(_on_day_time_changed)
 
 func _show_initial_notifications(_player: Player) -> void:
 	if not welcome_notif_sent:
@@ -48,7 +52,22 @@ func _show_inventory_material_notification() -> void:
 			notification_data.send_notification(DataData.STR_INITIAL_BUILDING_MAT_NOTIF, NotificationData.NotifType.INFO, 8)
 			building_mat_notif_sent = true
 
+func _on_day_time_changed(day_time: TimeData.DayTime, day: int) -> void:
+	if day == 1 and day_time == TimeData.DayTime.NIGHT:
+		if shelter_data.get_current_health() == 0:
+			# first night and shelter not built yet
+			print("GAME OVER")
+			notification_data.send_notification(DataData.STR_SHELTER_UNBUILT_GAME_OVER_NOTIF, NotificationData.NotifType.INFO, 5)
+			# TODO: Handle Game Over Sequence
+			game_over.emit()
+			await get_tree().create_timer(5).timeout
+			get_tree().reload_current_scene()
+		else:
+			# first night notification
+			notification_data.send_notification(DataData.STR_NIGHT_BUTTON_NOTIF, NotificationData.NotifType.INFO, 5)
+
 
 func _exit_tree() -> void:
 	player_spawner.player_spawned.disconnect(_show_initial_notifications)
 	inventory_data.inventory_updated.disconnect(_show_inventory_material_notification)
+	time_data.day_time_changed.disconnect(_on_day_time_changed)
