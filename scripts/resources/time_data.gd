@@ -71,7 +71,7 @@ func tick_second():
 			day_time_changed.emit(get_current_day_time(), get_current_day())
 			day_changed.emit(get_current_day())
 
-	elif current_time >= day_duration:
+	elif current_time >= day_duration and current_day_time == DayTime.DAY:
 		current_day_time = DayTime.NIGHT
 		day_time_changed.emit(get_current_day_time(), get_current_day())
 
