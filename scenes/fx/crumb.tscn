@@ -1,12 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://dfttext65sqwh"]
 
-[ext_resource type="Texture2D" uid="uid://der44o0sfng04" path="res://textures/LightRadius.png" id="1_8u6wj"]
+[ext_resource type="Texture2D" uid="uid://bpon0swld7060" path="res://textures/arrow.png" id="1_8u6wj"]
 
 [node name="Crumb" type="Sprite2D"]
-scale = Vector2(0.1, 0.025)
-texture = ExtResource("1_8u6wj")
+modulate = Color(0, 1, 0.35686275, 1)
+visibility_layer = 4
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visibility_layer = 4
+enabled = false
 color = Color(0, 1, 0, 1)
-energy = 0.5
 texture = ExtResource("1_8u6wj")

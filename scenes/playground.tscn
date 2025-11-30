@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dd54cgosb5ucn"]
+[gd_scene load_steps=35 format=3 uid="uid://dd54cgosb5ucn"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x1amm"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_2bfhc"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://dv1are383yxjc" path="res://scenes/icons/forest_1.tscn" id="9_j30dx"]
 [ext_resource type="PackedScene" uid="uid://bceurkhw3t078" path="res://scenes/components/material_spawner.tscn" id="10_x1amm"]
 [ext_resource type="PackedScene" uid="uid://p0h8vm3tcxu7" path="res://scenes/ui/game_ui.tscn" id="11_2bfhc"]
+[ext_resource type="Script" uid="uid://c2y1n0q358qa4" path="res://scripts/components/radio_controller.gd" id="11_csshy"]
+[ext_resource type="Resource" uid="uid://bogws1m5hr4lb" path="res://resources/player/player_data.tres" id="12_2etec"]
 [ext_resource type="Resource" uid="uid://tuhoebnxv27c" path="res://resources/ui/notification_data.tres" id="13_q6c7b"]
 [ext_resource type="Script" uid="uid://ds0bv1kmotaup" path="res://scripts/components/tsunami_controller.gd" id="17_2ilni"]
 [ext_resource type="Resource" uid="uid://dk0l64qstuw3i" path="res://resources/tsunami_data.tres" id="18_d3jfy"]
@@ -72,6 +74,7 @@ metadata/_custom_type_script = "uid://ds0bv1kmotaup"
 [node name="Timer" type="Timer" parent="TsunamiController"]
 
 [node name="TimeManager" parent="." node_paths=PackedStringArray("night_light") instance=ExtResource("20_x2tju")]
+second_duration = 0.1
 night_light = NodePath("../NightLight")
 
 [node name="DebugLabel" parent="TimeManager" index="1"]
@@ -79,6 +82,17 @@ offset_left = -2831.0
 offset_top = -164.0
 offset_right = -2560.0
 offset_bottom = -97.0
+
+[node name="RadioController" type="Node" parent="." node_paths=PackedStringArray("radio_button", "night_vision_button")]
+script = ExtResource("11_csshy")
+radio_layer = 2
+radio_button = NodePath("../CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton")
+night_vision_button = NodePath("../CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton")
+inventory_data = ExtResource("23_vwj6b")
+time_data = ExtResource("20_wm6m6")
+notification_data = ExtResource("13_q6c7b")
+player_data = ExtResource("12_2etec")
+metadata/_custom_type_script = "uid://c2y1n0q358qa4"
 
 [node name="NightLight" type="DirectionalLight2D" parent="."]
 visible = false
@@ -320,6 +334,7 @@ position = Vector2(-2203, 435)
 
 [node name="Shelter" parent="Map/Objects" instance=ExtResource("5_emj6c")]
 position = Vector2(-2811, -196)
+tsunami_data = ExtResource("18_d3jfy")
 
 [node name="Spawners" type="Node2D" parent="Map"]
 
@@ -335,6 +350,7 @@ position = Vector2(-2795, -165)
 [node name="MaterialSpawner1" parent="Map/Spawners" instance=ExtResource("10_x1amm")]
 position = Vector2(-2273, 3)
 materials = Array[PackedScene]([ExtResource("8_mrac1")])
+time_data = ExtResource("20_wm6m6")
 
 [node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner1" index="0"]
 shape = SubResource("RectangleShape2D_x1amm")
@@ -346,6 +362,7 @@ text = "Building Material"
 position = Vector2(-1932, 218)
 materials = Array[PackedScene]([ExtResource("8_mrac1")])
 quantity = 30
+time_data = ExtResource("20_wm6m6")
 
 [node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner2" index="0"]
 shape = SubResource("RectangleShape2D_2q4k0")
@@ -357,6 +374,7 @@ text = "Building"
 position = Vector2(-352, 321)
 materials = Array[PackedScene]([ExtResource("9_2q4k0"), ExtResource("8_mrac1")])
 quantity = 500
+time_data = ExtResource("20_wm6m6")
 
 [node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner" index="0"]
 shape = SubResource("RectangleShape2D_osidk")
@@ -372,6 +390,7 @@ text = "Food and Building"
 position = Vector2(-2209, 270)
 materials = Array[PackedScene]([ExtResource("9_2q4k0")])
 quantity = 40
+time_data = ExtResource("20_wm6m6")
 
 [node name="CollisionShape2D" parent="Map/Spawners/MaterialSpawner3" index="0"]
 position = Vector2(-41, 10)
@@ -388,14 +407,6 @@ offset_bottom = 1078.0
 text = "GPS LAB"
 label_settings = SubResource("LabelSettings_x1amm")
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 135.0
-offset_top = 958.0
-offset_right = 408.0
-offset_bottom = 1051.0
-text = "GPS LAB"
-label_settings = SubResource("LabelSettings_x1amm")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("time_progress_dict") instance=ExtResource("11_2bfhc")]
@@ -409,3 +420,7 @@ time_progress_dict = {
 [editable path="Map/Spawners/MaterialSpawner2"]
 [editable path="Map/Spawners/MaterialSpawner"]
 [editable path="Map/Spawners/MaterialSpawner3"]
+[editable path="CanvasLayer/GameUI"]
+[editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton"]
+[editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[editable path="CanvasLayer/GameUI/PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]

@@ -12,6 +12,7 @@ extends Control
 @export var energy_label: Label
 @export var energy_cell_bar: ProgressBar
 @export var replenish_energy_button: Button
+@export var energy_use_mult_label: Label
 
 @export_subgroup("Tsunami")
 @export var tsunami_data: TsunamiData
@@ -121,6 +122,7 @@ func update_shelter_healthbar(_o: float, n: float)-> void:
 
 func update_energy_bar(_o: float, n: float)-> void:
 	energy_cell_bar.value = n
+	energy_use_mult_label.set_text("x%.2f" % inventory_data.get_effective_energy_use())
 
 func initialize_notifications() -> void:
 	for c in notifications_list.get_children():
@@ -178,7 +180,9 @@ func add_notification(notif: NotificationData.Notif) -> void:
 	notifications_list.add_child(notiff)
 	notiff.set_position(Vector2(0, 0))
 	notiff.set_text(notif.text)
+	notiff.set_timeout(notif.timeout)
 	notiff.set_type(notif.type)
+	notiff.display()
 
 func update_task(task: NotificationData.Notif) -> void:
 	task_label.set_text(task.text)

@@ -4,6 +4,7 @@ class_name Shelter extends StaticBody2D
 @export var shelter_data: ShelterData
 @export var sprite: Sprite2D
 @export var interaction_area: InteractionArea
+@export var tsunami_data: TsunamiData
 
 const TAG := "Shelter"
 
@@ -19,6 +20,7 @@ func _ready() -> void:
 	if debug: CLogger.d(TAG, "Current State: " + shelter_data.ShelterState.keys()[shelter_data.get_current_state()])
 
 	shelter_data.health_updated.connect(_update_sprite)
+	tsunami_data.wave_hit.connect(_on_wave_hit)
 
 	interaction_area.interact.connect(_shelter_interact)
 	interaction_area.body_entered.connect(_player_arrived_shelter)
@@ -28,6 +30,8 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	shelter_data.health_updated.disconnect(_update_sprite)
+
+	tsunami_data.wave_hit.disconnect(_on_wave_hit)
 
 	interaction_area.interact.disconnect(_shelter_interact)
 	interaction_area.body_entered.disconnect(_player_arrived_shelter)
@@ -42,6 +46,18 @@ func apply_damage(amount: int) -> int:
 
 func repair_damage(amount: int) -> int:
 	return shelter_data.repair_damage(amount)
+
+func _on_wave_hit(level: TsunamiData.TsunamiLevel):
+	if debug: CLogger.d(TAG, "Wave hit shelter")
+	if level == TsunamiData.TsunamiLevel.NONE:
+		return
+
+	if level == TsunamiData.TsunamiLevel.LOW:
+		shelter_data.apply_damage(2)
+	elif level == TsunamiData.TsunamiLevel.MED:
+		shelter_data.apply_damage(7)
+	elif level == TsunamiData.TsunamiLevel.HIGH:
+		shelter_data.apply_damage(25)
 
 func _update_sprite(_o: int, _n: int):
 	if debug: CLogger.d(TAG, "Updating sprite to " + str(shelter_data.get_current_sprite()))

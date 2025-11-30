@@ -48,7 +48,7 @@ expand_margin_top = 1.0
 expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("building_mat_label", "shelter_health_bar", "repair_shelter_button", "energy_label", "energy_cell_bar", "replenish_energy_button", "energy_use_mult_label", "next_tsunami_label", "tsunami_coutdown_progress", "notifications_list", "task_label", "time_progress_dict", "day_counter", "crt_filter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,6 +63,7 @@ repair_shelter_button = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVB
 energy_label = NodePath("PanelContainer/MarginContainer/MainHBox/RightVBox/ResourceCounts/VBoxContainer/EnergyMaterialCount/Label")
 energy_cell_bar = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/ProgressBar")
 replenish_energy_button = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/ReplenishEnergyButton")
+energy_use_mult_label = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/EnergyIcon/EnergyUseMult")
 tsunami_data = ExtResource("2_bxde6")
 next_tsunami_label = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer/TsunamiNext")
 tsunami_coutdown_progress = NodePath("PanelContainer/MarginContainer/MainHBox/LeftVBox/TsunamiGraph/TextureRect/VBoxContainer/MarginContainer/ProgressBar")
@@ -214,6 +215,19 @@ layout_mode = 2
 texture = ExtResource("19_cyqav")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="EnergyUseMult" type="Label" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox/EnergyIcon"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -26.0
+offset_right = 20.0
+offset_bottom = -2.0
+grow_horizontal = 2
+text = "x1.2"
+label_settings = ExtResource("17_5bpyr")
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/MarginContainer/MainHBox/LeftVBox/EnergyHBox"]
 custom_minimum_size = Vector2(200, 0)
@@ -375,20 +389,6 @@ layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="TrailCrumbsToggleButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
-layout_mode = 2
-toggle_mode = true
-button_pressed = true
-
-[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton" index="0"]
-text = "Trailcrumbs"
-
-[node name="NightVisionWaveButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
-layout_mode = 2
-
-[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton" index="0"]
-text = "Night Vision"
-
 [node name="RadioWaveButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
 toggle_mode = true
@@ -396,9 +396,25 @@ toggle_mode = true
 [node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton" index="0"]
 text = "Radio Wave"
 
+[node name="NightVisionWaveButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
+layout_mode = 2
+toggle_mode = true
+
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton" index="0"]
+text = "Night Vision"
+
 [node name="WaveButton4" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
 layout_mode = 2
 
-[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]
-[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[node name="TrailCrumbsToggleButton" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox" instance=ExtResource("16_oqj4c")]
+visible = false
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+
+[node name="ButtonText" parent="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton" index="0"]
+text = "Trailcrumbs"
+
 [editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/RadioWaveButton"]
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/NightVisionWaveButton"]
+[editable path="PanelContainer/MarginContainer/MainHBox/RightVBox/WaveControlsBox/TrailCrumbsToggleButton"]

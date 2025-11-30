@@ -4,10 +4,14 @@ extends PlayerBaseState
 @export var energy_cost: float = 0.05
 
 func enter() -> void:
-	pass
+	inventory_data.register_energy_user(energy_cost)
+	# to update the UI
+	inventory_data.use_energy(0)
 
 func exit() -> void:
-	pass
+	inventory_data.deregister_energy_user(energy_cost)
+	# to update the UI
+	inventory_data.use_energy(0)
 
 func process(_delta: float) -> StringName:
 	inventory_data.use_energy(energy_cost * _delta)

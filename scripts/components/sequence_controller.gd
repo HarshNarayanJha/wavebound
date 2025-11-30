@@ -28,19 +28,24 @@ func _show_initial_notifications(_player: Player) -> void:
 	if not welcome_notif_sent:
 		# show welcome
 		await get_tree().create_timer(2).timeout
-		notification_data.send_notification(DataData.STR_WELCOME_NOTIF, NotificationData.NotifType.INFO)
+		notification_data.send_notification(DataData.STR_WELCOME_NOTIF, NotificationData.NotifType.INFO, 5)
 		welcome_notif_sent = true
 
 	if not initial_task_given:
 		# set initial task
-		await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(6).timeout
 		notification_data.send_notification(DataData.STR_SHELTER_TASK, NotificationData.NotifType.TASK)
+
+		# tell about the radio button
+		await get_tree().create_timer(2).timeout
+		notification_data.send_notification(DataData.STR_RADIO_BUTTON_NOTIF, NotificationData.NotifType.INFO, 7)
+
 		initial_task_given = true
 
 func _show_inventory_material_notification() -> void:
 	if not building_mat_notif_sent:
 		if inventory_data.get_count(building_mat) >= 100:
-			notification_data.send_notification(DataData.STR_INITIAL_BUILDING_MAT_NOTIF, NotificationData.NotifType.INFO)
+			notification_data.send_notification(DataData.STR_INITIAL_BUILDING_MAT_NOTIF, NotificationData.NotifType.INFO, 8)
 			building_mat_notif_sent = true
 
 

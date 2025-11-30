@@ -49,6 +49,8 @@ signal energy_depleted(amount: float)
 signal energy_restored(amount: float)
 signal energy_updated(old_energy: float, new_energy: float)
 
+var energy_users: Array[float]
+
 func init() -> void:
 	_current_energy = initial_energy
 	energy_updated.emit(0, _current_energy)
@@ -82,6 +84,15 @@ func recharge_energy(force := false, amount: float = base_energy_recharge) -> bo
 		return true
 
 	return false
+
+func register_energy_user(mult: float):
+	energy_users.append(mult)
+
+func deregister_energy_user(mult: float):
+	energy_users.erase(mult)
+
+func get_effective_energy_use() -> float:
+	return energy_users.reduce(func(accum, x): return accum + x, 0)
 
 func get_current_energy() -> float:
 	return _current_energy

@@ -20,7 +20,8 @@ func _ready() -> void:
 
 func pick() -> void:
 	# CLogger.l(TAG, "Picked Material %s x%d" % [material_data.name, quantity])
-	queue_free()
+	# material_spawner will .queue_free() them
+	get_parent().remove_child(self)
 
 func set_quantity(qty: int) -> void:
 	if qty < 1:
