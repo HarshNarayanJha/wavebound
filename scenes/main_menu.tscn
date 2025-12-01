@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://v8h3fa4edfvt"]
+[gd_scene load_steps=14 format=3 uid="uid://v8h3fa4edfvt"]
 
 [ext_resource type="Texture2D" uid="uid://dcuclb72c0vcw" path="res://textures/Radar UI.png" id="1_l6cm7"]
 [ext_resource type="Script" uid="uid://biygklkv0d465" path="res://scripts/main_menu.gd" id="1_rtw2f"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://b0o6ffdk8rf35" path="res://textures/Radar UI_Circle.png" id="2_8ln24"]
 [ext_resource type="LabelSettings" uid="uid://bht3q8etrsinh" path="res://settings/ui/title_text.label_settings.tres" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://bfbfjby76d64i" path="res://scenes/ui/wave_button.tscn" id="5_8ln24"]
+[ext_resource type="LabelSettings" uid="uid://cmqk1n6lddjy6" path="res://settings/ui/extra_large_text.label_settings.tres" id="7_oa1go"]
+[ext_resource type="LabelSettings" uid="uid://cu1j5hojlnawo" path="res://settings/ui/small_text_muted.label_settings.tres" id="8_tbmy8"]
+[ext_resource type="LabelSettings" uid="uid://cd6d4kl4wedpq" path="res://settings/ui/small_text.label_settings.tres" id="9_jk1qb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
 bg_color = Color(0.12941177, 0.13333334, 0.12941177, 1)
@@ -17,7 +20,10 @@ texture = ExtResource("1_l6cm7")
 shader = ExtResource("1_wu84c")
 shader_parameter/fisheye_strength = 1.1
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "credits_button", "quit_button")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0.05882353, 0.05882353, 0.05882353, 0.9607843)
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "credits_button", "quit_button", "credits_panel", "credits_close_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,10 +31,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rtw2f")
-play_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton")
-credits_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton4")
-quit_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton3")
+play_button = NodePath("PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton")
+credits_button = NodePath("PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton4")
+quit_button = NodePath("PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton3")
 playground_path = "uid://dd54cgosb5ucn"
+credits_panel = NodePath("PanelContainer/MarginContainer")
+credits_close_button = NodePath("PanelContainer/MarginContainer/Panel2/VBoxContainer/CreditClose")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -39,16 +47,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ekxnf")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Panel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
 
-[node name="CRTFish" type="TextureRect" parent="Panel"]
+[node name="CRTFish" type="TextureRect" parent="PanelContainer/Panel"]
 material = SubResource("ShaderMaterial_rtw2f")
 layout_mode = 1
 anchors_preset = 15
@@ -58,7 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_8ln24")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Panel"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -68,57 +71,144 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Control2" type="Control" parent="Panel/VBoxContainer"]
+[node name="Control2" type="Control" parent="PanelContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Wavebound"
 label_settings = ExtResource("2_ekxnf")
 
-[node name="Control" type="Control" parent="Panel/VBoxContainer"]
+[node name="Control" type="Control" parent="PanelContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="WaveButton" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+[node name="WaveButton" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
 layout_mode = 2
 
-[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton" index="0"]
+[node name="ButtonText" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton" index="0"]
 text = "Play"
 
-[node name="WaveButton2" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+[node name="WaveButton4" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
 layout_mode = 2
 
-[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton2" index="0"]
-offset_top = 2.0
-offset_bottom = 2.0
-text = "Help"
-
-[node name="WaveButton4" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
-layout_mode = 2
-
-[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton4" index="0"]
+[node name="ButtonText" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton4" index="0"]
 text = "Credits"
 
-[node name="WaveButton3" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+[node name="WaveButton3" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
 layout_mode = 2
 
-[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton3" index="0"]
+[node name="ButtonText" parent="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton3" index="0"]
 text = "Quit"
 
-[node name="Control3" type="Control" parent="Panel/VBoxContainer"]
+[node name="Control3" type="Control" parent="PanelContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton"]
-[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton2"]
-[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton4"]
-[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton3"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="Panel2" type="Panel" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtw2f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+label_settings = ExtResource("7_oa1go")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Developer
+
+Addons
+
+
+Fonts
+
+UI
+
+
+Art
+
+
+"
+label_settings = ExtResource("8_tbmy8")
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Harsh Narayan Jha
+
+Phantom Camera
+Scene Manager by Glassbrick
+
+Blazma and Robtronika by GGBotNet
+
+UI Sci-Fi Minimalism #01 and Free Hologram Interface by Wenrexa
+Icon pack by SunGraphica
+
+CRT with variable fisheye shader by thepathgame
+Map by Azgaar's Fantasy Map Generator
+Custom Map Icons by Ahturin"
+label_settings = ExtResource("9_jk1qb")
+
+[node name="Control4" type="Control" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="CreditClose" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer" instance=ExtResource("5_8ln24")]
+layout_mode = 2
+
+[node name="ButtonText" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer/CreditClose" index="0"]
+text = "Close"
+
+[node name="Control3" type="Control" parent="PanelContainer/MarginContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[editable path="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton"]
+[editable path="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton4"]
+[editable path="PanelContainer/Panel/VBoxContainer/VBoxContainer/WaveButton3"]
+[editable path="PanelContainer/MarginContainer/Panel2/VBoxContainer/CreditClose"]

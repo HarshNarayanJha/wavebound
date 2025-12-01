@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Wavebound"
-run/main_scene="uid://dd54cgosb5ucn"
+config/description="A resource management and survival game where to protect yourself from (tsunami) waves using (physics) waves"
+config/version="1.0.0"
+run/main_scene="uid://v8h3fa4edfvt"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://bhqtfkkd0awsu"
 
 [autoload]
 
