@@ -10,3 +10,5 @@ const STR_INITIAL_BUILDING_MAT_NOTIF := "You have collected 100 building materia
 const STR_NO_USE_NIGHTLIGHT_DAY_NOTIF := "There is no use of this in daylight"
 
 const STR_SHELTER_UNBUILT_GAME_OVER_NOTIF := "You have not built a shelter before dusk. Game Over!"
+const STR_ENERGY_GAME_OVER_NOTIF := "You have run out of energy. Game Over!"
+const STR_SHELTER_GAME_OVER_NOTIF := "Your shelter was demolished by a tsunami and couldn't protect you. Game Over!"

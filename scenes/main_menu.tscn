@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://v8h3fa4edfvt"]
+
+[ext_resource type="Texture2D" uid="uid://dcuclb72c0vcw" path="res://textures/Radar UI.png" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://biygklkv0d465" path="res://scripts/main_menu.gd" id="1_rtw2f"]
+[ext_resource type="Shader" uid="uid://dagtqb8qy27no" path="res://shaders/crt_fisheye.gdshader" id="1_wu84c"]
+[ext_resource type="Texture2D" uid="uid://b0o6ffdk8rf35" path="res://textures/Radar UI_Circle.png" id="2_8ln24"]
+[ext_resource type="LabelSettings" uid="uid://bht3q8etrsinh" path="res://settings/ui/title_text.label_settings.tres" id="2_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://bfbfjby76d64i" path="res://scenes/ui/wave_button.tscn" id="5_8ln24"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+bg_color = Color(0.12941177, 0.13333334, 0.12941177, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
+texture = ExtResource("1_l6cm7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtw2f"]
+shader = ExtResource("1_wu84c")
+shader_parameter/fisheye_strength = 1.1
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "credits_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rtw2f")
+play_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton")
+credits_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton4")
+quit_button = NodePath("Panel/VBoxContainer/VBoxContainer/WaveButton3")
+playground_path = "uid://dd54cgosb5ucn"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxnf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
+
+[node name="CRTFish" type="TextureRect" parent="Panel"]
+material = SubResource("ShaderMaterial_rtw2f")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ln24")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Control2" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Wavebound"
+label_settings = ExtResource("2_ekxnf")
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="WaveButton" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+layout_mode = 2
+
+[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton" index="0"]
+text = "Play"
+
+[node name="WaveButton2" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+layout_mode = 2
+
+[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton2" index="0"]
+offset_top = 2.0
+offset_bottom = 2.0
+text = "Help"
+
+[node name="WaveButton4" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+layout_mode = 2
+
+[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton4" index="0"]
+text = "Credits"
+
+[node name="WaveButton3" parent="Panel/VBoxContainer/VBoxContainer" instance=ExtResource("5_8ln24")]
+layout_mode = 2
+
+[node name="ButtonText" parent="Panel/VBoxContainer/VBoxContainer/WaveButton3" index="0"]
+text = "Quit"
+
+[node name="Control3" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton"]
+[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton2"]
+[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton4"]
+[editable path="Panel/VBoxContainer/VBoxContainer/WaveButton3"]
